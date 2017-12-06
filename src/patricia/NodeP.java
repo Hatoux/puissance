@@ -7,10 +7,6 @@ import exceptions.WrongAccessException;
 
 public class NodeP {
 
-
-	
-
-
 	private String prefix;
 	private NodeP[] tabFils;
 	private int nbFils;
@@ -20,28 +16,39 @@ public class NodeP {
 		tabFils = null;
 		nbFils = 0;
 	}
-
-	public void initTabFils() {
-		tabFils=new NodeP[PatriciaTrie.TAILLE_ALPHABET];
-	}
+	
+	/* TODO: j'aime pas ce constructeur il peut creer des bugs
+	 * en faite pour moi les tabFils ne peuvent etre créé que par addWord
+	 */
 	public NodeP(String prefix,NodeP[] t){
 		this.prefix = prefix;
 		tabFils = t;
 		nbFils = 0;
 	}
+	
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ---- primitives ---- -------------------- */ 
+
+	
 	public String getPrefix(){ return prefix; }
-
+	
+	public void setPrefix(String newPrefix){ prefix = newPrefix; }
+	
+	public void initTabFils() {	tabFils=new NodeP[PatriciaTrie.TAILLE_ALPHABET]; }
+	
 	public NodeP[] getTabFils(){ return tabFils; }
-
+	
+	public void setTabFils(NodeP[] t){ tabFils = t; }
+	
 	public int getNbFils(){ return nbFils; }
 
-
-	public void incNbFils() {
-		nbFils++;
-	}
-	public boolean isTabFilsNotNull(){
-		return tabFils != null;
-	}
+	//TODO voir si cette fonction est necessaire
+	public void setNbFils(int n){ nbFils = n; }
+	
+	public void incNbFils() { nbFils++; }
+	
+	public boolean isTabFilsNotNull(){ return tabFils != null; }
 
 	//TODO voir si cette fonction est necessaire
 	public boolean isUnFilsNotNull(String key) throws WrongAccessException{
@@ -59,19 +66,9 @@ public class NodeP {
 	}
 
 
-	/* ---------- a ajouter ---------- */
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  fonctions avancees  -------------------- */
 
-	public void setPrefix(String newPrefix){
-		prefix = newPrefix;
-	}
-
-	public void setTabFils(NodeP[] t){
-		tabFils = t;
-	}
-
-	public void setNbFils(int n){
-		nbFils = n;
-	}
 
 	/**
 	 * ajoute la chaine de charactere passe en parametre dant le Patricia trie a partir du noeud courant
@@ -153,6 +150,13 @@ public class NodeP {
 	}
 
 
+
+
+	/* ---------- a ajouter ---------- */
+
+
+
+
 	public int prefixe(String w){
 		String prefixCommun = Ptools.getPrefixCommun(prefix, w);
 		String resteMot = w.substring(prefixCommun.length());
@@ -167,36 +171,22 @@ public class NodeP {
 	}
 
 
-	/**
-	 * affiche le Patricia trie a partir du noeud courant
-	 * @param h:int -> entier permettant d'indenter l'affichage
-	 */
-	public void showNode(int h){
-		for(int i=0; i<h; i++) System.out.print("     ");
-		System.out.print(prefix);
-		if(tabFils != null) {
-			System.out.println(" (" + nbFils + ")->");
-			for(NodeP n: tabFils) 
-				if(n != null){
-					n.showNode(h + 1);
-					System.out.println();
-				}
-		}
-	}
+
+	/* TODO: factorisation surement possible */
 	public boolean deleteWord(String w){
-						if(prefix.compareTo(w)==0) {
-									return true;
+		if(prefix.compareTo(w)==0) {
+			return true;
 		}
 
 		if(prefix.length()>w.length()) {
-									return false;
+			return false;
 		}
 
 		int i;
 		int min = w.length()<prefix.length()? w.length() : prefix.length();
-				for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} 	
-				String s = w.substring(i);
-				if(tabFils[s.charAt(0)]!=null) {//inutile normalement
+		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} 	
+		String s = w.substring(i);
+		if(tabFils[s.charAt(0)]!=null) {//inutile normalement
 			boolean b=tabFils[s.charAt(0)].deleteWord(s);
 			if(b) {
 				if(nbFils==2) {
@@ -390,6 +380,29 @@ public class NodeP {
 		}
 		return result;
 	}
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  ----- autres -----  -------------------- */
+
+	
+	/**
+	 * affiche le Patricia trie a partir du noeud courant
+	 * @param h:int -> entier permettant d'indenter l'affichage
+	 */
+	public void showNode(int h){
+		for(int i=0; i<h; i++) System.out.print("     ");
+		System.out.print(prefix);
+		if(tabFils != null) {
+			System.out.println(" (" + nbFils + ")->");
+			for(NodeP n: tabFils) 
+				if(n != null){
+					n.showNode(h + 1);
+					System.out.println();
+				}
+		}
+	}
+
+	
 	
 	
 }

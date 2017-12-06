@@ -11,6 +11,7 @@ package patricia;
 import java.util.ArrayList;
 
 import exceptions.BadArgumentException;
+import tools.Tools;
 
 public class PatriciaTrie {
 
@@ -22,44 +23,30 @@ public class PatriciaTrie {
 	private NodeP[] tabFils;
 	private int nbFils;
 	
-
-
-	
 	public PatriciaTrie(){
 		tabFils = null;
 		nbFils = 0;
 	}
 
-	public NodeP[] getTabFils() {
-		return tabFils;
-	}
-
-
-	public void setTabFils(NodeP[] tabFils) {
-		this.tabFils = tabFils;
-	}
-
-
-	public void setNbFils(int nbFils) {
-		this.nbFils = nbFils;
-	}
-
-	public void incNbFils() {
-		nbFils++;
-	}
-    
-	public void initFils() {
-		tabFils=new NodeP[TAILLE_ALPHABET];
-	}
 	
-	public NodeP filsAIndex(int i) {
-		return tabFils[i];
-	}
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ---- primitives ---- -------------------- */ 
 
-
-	/* ---------- a ajouter ---------- */
-
+	
+	public NodeP[] getTabFils() { return tabFils; }
+	public void setTabFils(NodeP[] tabFils) { this.tabFils = tabFils; }
+	public void initFils() { tabFils=new NodeP[TAILLE_ALPHABET]; }
+	public NodeP iemefils(int i) { return tabFils[i]; }
+	
 	public int getNbFils(){ return nbFils; }
+	public void incNbFils() { nbFils++;	}
+//	public void setNbFils(int nbFils) {	this.nbFils = nbFils; }
+
+	
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  fonctions avancees  -------------------- */
+	
 
 	/**
 	 * ajoute une chaine de charactere dans le Patricia trie
@@ -68,16 +55,10 @@ public class PatriciaTrie {
 	 */
 	public void addWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		for(int i=0; i<w.length(); i++){
-			if(w.length() == 0)
-				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
-			else if(w.charAt(i) == EPSILON.charAt(0))
-				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
-		}
-
+		Tools.checkWord("PatriciaTrie.addWord", w);
+		
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
-		//		System.out.println("ajout du mot: " + w); // TODO print
 
 		if(tabFils == null){
 			tabFils = new NodeP[ TAILLE_ALPHABET ];
@@ -91,6 +72,7 @@ public class PatriciaTrie {
 			tabFils[ word.charAt(0) ].addWord(word);
 	}
 
+	
 	/**
 	 * determine si le mot est present dans le Patricia trie
 	 * @param w:String -> mot a rechercher
@@ -99,12 +81,8 @@ public class PatriciaTrie {
 	 */
 	public boolean recherche(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		for(int i=0; i<w.length(); i++){
-			if(w.length() == 0)
-				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
-			else if(w.charAt(i) == EPSILON.charAt(0))
-				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
-		}
+		Tools.checkWord("PatriciaTrie.recherche", w);
+		
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
 
@@ -117,6 +95,7 @@ public class PatriciaTrie {
 	}
 
 
+	
 	/**
 	 * compte le nombre de mots dans le Patricia trie courant
 	 * @return le nombre de mots
@@ -133,14 +112,13 @@ public class PatriciaTrie {
 	}
 
 
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ----- a valider ---- -------------------- */	
+	
+	
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		for(int i=0; i<w.length(); i++){
-			if(w.length() == 0)
-				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
-			else if(w.charAt(i) == EPSILON.charAt(0))
-				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
-		}
+		Tools.checkWord("PatriciaTrie.prefixe", w);
 
 		if(tabFils != null){
 			if(tabFils[ w.charAt(0) ] != null) 
@@ -151,27 +129,10 @@ public class PatriciaTrie {
 
 
 
-	/**
-	 * permet de visualiser chaque noeud du Patricia trie
-	 */
-	public void showTrie(){
-		System.out.print("\"\"" );
-		if(tabFils != null){
-			System.out.println(" (" + nbFils + ")->");
-			for(NodeP n: tabFils) 
-				if(n != null) n.showNode(1);
-
-		}
-	}
 
 	public void deleteWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		for(int i=0; i<w.length(); i++){
-			if(w.length() == 0)
-				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
-			else if(w.charAt(i) == EPSILON.charAt(0))
-				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
-		}
+		Tools.checkWord("PatriciaTrie.deleteWord", w);
 
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
@@ -184,20 +145,12 @@ public class PatriciaTrie {
 		}
 	}
 
-	public String toString() {
-		ArrayList<String> lr=listeMot();
-		String r="";
-		for(String s : lr)
-			r+=s+"\n";
-		return r;
-	}
-
+	/* TODO ya un pb je crois la: tu renvoie une liste vide */
 	public ArrayList<String> listeMot(){
 		ArrayList<String> lr=new ArrayList<>();
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
-					//				System.out.println(tabFils[i]);
 					tabFils[i].toString(lr, "");
 				}
 			}
@@ -205,17 +158,28 @@ public class PatriciaTrie {
 		return lr;
 	}
 
+	
+	public String toString() {
+		String r="";
+		for(String s : listeMot())
+			r+=s+"\n";
+		return r;
+	}
+
+
 	public ArrayList<String> listeMot2(){
 		ArrayList<String> lr=new ArrayList<>();
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
-										tabFils[i].toString2(lr, new StringBuilder(""));
+					tabFils[i].toString2(lr, new StringBuilder(""));
 				}
 			}
 		}
 		return lr;
 	}
+
+
 	public int comptageNil(){
 		int r = 0;
 		if(tabFils!=null)
@@ -288,6 +252,23 @@ public class PatriciaTrie {
 			p1.nbFils=p2.nbFils;
 		}
 		return p1;
+	}
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  ----- autres -----  -------------------- */
+
+	/**
+	 * permet de visualiser chaque noeud du Patricia trie
+	 */
+	public void showTrie(){
+		System.out.print("\"\"" );
+		if(tabFils != null){
+			System.out.println(" (" + nbFils + ")->");
+			for(NodeP n: tabFils) 
+				if(n != null) n.showNode(1);
+
+		}
 	}
 
 }
