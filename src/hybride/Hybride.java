@@ -1,16 +1,15 @@
 package hybride;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import exceptions.BadArgumentException;
 import patricia.NodeP;
 import patricia.PatriciaTrie;
+import tools.Tools;
 
 public class Hybride {
 	
 	private HNode hd;
-
 	private int nbMots;
 	
 	public Hybride() {
@@ -18,9 +17,59 @@ public class Hybride {
 		nbMots=0;
 	}
 	
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ---- primitives ---- -------------------- */ 
+
+	/**
+	 * determine si l'arbre Hybride est vide
+	 * @return true si l'arbre est vide, false sinon
+	 */
+	public boolean isEmpty(){ return hd == null; }
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  fonctions avancees  -------------------- */
+	
+	
+	/**
+	 * supprime le mot passer en parametre de l'Hybride
+	 * @param w:String mos qu'on veut supprimer
+	 * @throws BadArgumentException : si le mot n'est pas un mot valide
+	 */
+	public void suppression(String w) throws BadArgumentException{
+		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.suppression", w);
+
+		if(!isEmpty()) 
+			if( hd.suppression(null, w) ) hd = null;
+	}
+
+	
+	/**
+	 * TODO : normalement cette methode est testé
+	 * liste les mots present dans l'Hybride
+	 * @return une ArrayList<String> contenant tous les mots present dans l'Hybride
+	 */
+	public ArrayList<String> listeMot(){
+		ArrayList<String> res = new ArrayList<String>();
+		if(!isEmpty()) hd.listeMot(res, "");
+		return res;
+	}
+
+
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- -------------------- -------------------- */
+	
+	/* partie joe non fusionnee */
+	/* TODO faut que je vois avec toi si elles sont ok */
+
+	
+	
 	public void add(String s) throws BadArgumentException{
-		if(s.length()==0)
-			throw new BadArgumentException("Hybride.addWord: w est une chaine vide");
+		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.add", s);
+		
 		if(hd==null)
 			hd=new HNode(null, s.charAt(0)+"", null, null, null);
 		hd.add(s.substring(0),nbMots);
@@ -28,8 +77,9 @@ public class Hybride {
 
 	}
 	
-	public boolean rechercher(String w) {
-		/* ajout d'EPSILON a la fin du mot */
+	public boolean rechercher(String w) throws BadArgumentException {
+		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.rechercher", w);
 
 		if(hd != null)
 			return hd.rechercher(w);
@@ -48,6 +98,8 @@ public class Hybride {
 	
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.prefixe", w);
+
 		if(hd != null){
 			return hd.prefixe(w);
 		}
@@ -78,6 +130,31 @@ public class Hybride {
 		}
 		return n;
 	}
+	
+	/* partie Hatem non fusionnee */
+	
+	/* TODO comment ca se passe si l arbre est vide 3 ou 1 */
+	/**
+	 * @return int: le nombre de pointeur nul dans l'Hybride
+	 */
+	public int comptageNil(){
+		if( isEmpty() ) return 1;
+		return hd.comptageNil();
+	}
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  ----- autres -----  -------------------- */
+
+	
+	/**
+	 * affichage rapide, pas tres claire mais permet de visualiser un peu
+	 */
+	public void showHybride(){
+		if(hd != null) hd.showHNode(0);
+		else System.out.println("l'arbre est vide");
+	}
+
 	
 
 }
