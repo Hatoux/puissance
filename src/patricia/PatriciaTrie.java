@@ -18,35 +18,38 @@ public class PatriciaTrie {
 	public static int TAILLE_ALPHABET = 128;
 	public static final String EPSILON = "_";
 
-
-
 	private NodeP[] tabFils;
 	private int nbFils;
-	
+
 	public PatriciaTrie(){
 		tabFils = null;
 		nbFils = 0;
 	}
 
-	
+
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ---- primitives ---- -------------------- */ 
 
-	
+
 	public NodeP[] getTabFils() { return tabFils; }
 	public void setTabFils(NodeP[] tabFils) { this.tabFils = tabFils; }
 	public void initFils() { tabFils=new NodeP[TAILLE_ALPHABET]; }
 	public NodeP iemefils(int i) { return tabFils[i]; }
-	
+
 	public int getNbFils(){ return nbFils; }
 	public void incNbFils() { nbFils++;	}
-//	public void setNbFils(int nbFils) {	this.nbFils = nbFils; }
+	public void setNbFils(int nbFils) {	this.nbFils = nbFils; }
+
+//	public NodeP filsAIndex(int i) {
+//	return tabFils[i];
+//}
 
 	
 	
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  fonctions avancees  -------------------- */
-	
+
 
 	/**
 	 * ajoute une chaine de charactere dans le Patricia trie
@@ -72,7 +75,7 @@ public class PatriciaTrie {
 			tabFils[ word.charAt(0) ].addWord(word);
 	}
 
-	
+
 	/**
 	 * determine si le mot est present dans le Patricia trie
 	 * @param w:String -> mot a rechercher
@@ -94,7 +97,6 @@ public class PatriciaTrie {
 		return false;
 	}
 
-
 	
 	/**
 	 * compte le nombre de mots dans le Patricia trie courant
@@ -112,10 +114,6 @@ public class PatriciaTrie {
 	}
 
 
-	/* -------------------- -------------------- -------------------- */ 
-	/* -------------------- ----- a valider ---- -------------------- */	
-	
-	
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.prefixe", w);
@@ -127,12 +125,23 @@ public class PatriciaTrie {
 		return 0;
 	}
 
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- -------------------- -------------------- */ 
+
+	
 
 
+	/* ---------- a ajouter ---------- */
 
 	public void deleteWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		Tools.checkWord("PatriciaTrie.deleteWord", w);
+		for(int i=0; i<w.length(); i++){
+			if(w.length() == 0)
+				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
+			else if(w.charAt(i) == EPSILON.charAt(0))
+				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
+		}
 
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
@@ -145,12 +154,20 @@ public class PatriciaTrie {
 		}
 	}
 
-	/* TODO ya un pb je crois la: tu renvoie une liste vide */
+	public String toString() {
+		ArrayList<String> lr=listeMot();
+		String r="";
+		for(String s : lr)
+			r+=s+"\n";
+		return r;
+	}
+
 	public ArrayList<String> listeMot(){
 		ArrayList<String> lr=new ArrayList<>();
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
+					//				System.out.println(tabFils[i]);
 					tabFils[i].toString(lr, "");
 				}
 			}
@@ -158,28 +175,17 @@ public class PatriciaTrie {
 		return lr;
 	}
 
-	
-	public String toString() {
-		String r="";
-		for(String s : listeMot())
-			r+=s+"\n";
-		return r;
-	}
-
-
 	public ArrayList<String> listeMot2(){
 		ArrayList<String> lr=new ArrayList<>();
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
-					tabFils[i].toString2(lr, new StringBuilder(""));
+										tabFils[i].toString2(lr, new StringBuilder(""));
 				}
 			}
 		}
 		return lr;
 	}
-
-
 	public int comptageNil(){
 		int r = 0;
 		if(tabFils!=null)
@@ -253,8 +259,8 @@ public class PatriciaTrie {
 		}
 		return p1;
 	}
-
 	
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  ----- autres -----  -------------------- */
 
@@ -271,4 +277,10 @@ public class PatriciaTrie {
 		}
 	}
 
+
 }
+
+
+
+
+

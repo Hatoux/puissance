@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import exceptions.WrongAccessException;
 
+
+
 public class NodeP {
 
 	private String prefix;
@@ -16,38 +18,42 @@ public class NodeP {
 		tabFils = null;
 		nbFils = 0;
 	}
-	
-	/* TODO: j'aime pas ce constructeur il peut creer des bugs
-	 * en faite pour moi les tabFils ne peuvent etre créé que par addWord
-	 */
+
+	public NodeP(){
+		this.prefix =null;
+		tabFils = null;
+		nbFils = 0;
+	}
+
 	public NodeP(String prefix,NodeP[] t){
 		this.prefix = prefix;
 		tabFils = t;
 		nbFils = 0;
 	}
-	
-	
+
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ---- primitives ---- -------------------- */ 
-
-	
 	public String getPrefix(){ return prefix; }
-	
+
 	public void setPrefix(String newPrefix){ prefix = newPrefix; }
-	
+
 	public void initTabFils() {	tabFils=new NodeP[PatriciaTrie.TAILLE_ALPHABET]; }
-	
+
 	public NodeP[] getTabFils(){ return tabFils; }
-	
+
 	public void setTabFils(NodeP[] t){ tabFils = t; }
-	
+
 	public int getNbFils(){ return nbFils; }
 
 	//TODO voir si cette fonction est necessaire
 	public void setNbFils(int n){ nbFils = n; }
-	
+
 	public void incNbFils() { nbFils++; }
-	
+
+	// TODO necessaire?
+	public void incNbFils(int i) { nbFils+=i; }
+
 	public boolean isTabFilsNotNull(){ return tabFils != null; }
 
 	//TODO voir si cette fonction est necessaire
@@ -65,9 +71,9 @@ public class NodeP {
 		}else throw new WrongAccessException("methode getUnFils : Acces a un fils inexistant!");
 	}
 
-
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  fonctions avancees  -------------------- */
+
 
 
 	/**
@@ -150,13 +156,6 @@ public class NodeP {
 	}
 
 
-
-
-	/* ---------- a ajouter ---------- */
-
-
-
-
 	public int prefixe(String w){
 		String prefixCommun = Ptools.getPrefixCommun(prefix, w);
 		String resteMot = w.substring(prefixCommun.length());
@@ -171,8 +170,6 @@ public class NodeP {
 	}
 
 
-
-	/* TODO: factorisation surement possible */
 	public boolean deleteWord(String w){
 		if(prefix.compareTo(w)==0) {
 			return true;
@@ -215,6 +212,13 @@ public class NodeP {
 
 	}
 
+	
+
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- -------------------- -------------------- */ 
+
+	
+	
 	public void toString(ArrayList<String>ls, String s) {
 		if(prefix.charAt(prefix.length()-1)==PatriciaTrie.EPSILON.charAt(0)) {
 			if(prefix.length()>1)
@@ -272,12 +276,12 @@ public class NodeP {
 	private void fusionFils(NodeP n) {
 		if(tabFils!=null) {
 			if(n.tabFils!=null) {
-								for(int i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++) {
+				for(int i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++) {
 					if(tabFils[i]!=null) {
 						if(n.tabFils[i]!=null) {
 							tabFils[i].fusion(n.tabFils[i]);
 						}
-											}
+					}
 					else {
 						if(n.tabFils[i]!=null){
 							tabFils[i]=n.tabFils[i];
@@ -326,7 +330,7 @@ public class NodeP {
 		n.tabFils=tmpFils;
 	}
 	public void fusion(NodeP n){
-		
+
 		int i,min;
 		min=n.prefix.length()<prefix.length()?n.prefix.length():prefix.length();
 		for(i=0;i<min && prefix.charAt(i)==n.prefix.charAt(i);i++){}
@@ -336,7 +340,7 @@ public class NodeP {
 				fusionFils(n);
 			}
 			if(compare<0) {
-				
+
 				n.prefix=n.prefix.substring(min);
 				fusionFilsNoeud(n);
 			}
@@ -361,7 +365,7 @@ public class NodeP {
 			tabFils= new NodeP[PatriciaTrie.TAILLE_ALPHABET];
 			tabFils[n.prefix.charAt(0)]=n;
 			tabFils[nf.prefix.charAt(0)]=nf;
-			
+
 		}
 	}
 
@@ -384,7 +388,7 @@ public class NodeP {
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  ----- autres -----  -------------------- */
 
-	
+
 	/**
 	 * affiche le Patricia trie a partir du noeud courant
 	 * @param h:int -> entier permettant d'indenter l'affichage
@@ -402,7 +406,10 @@ public class NodeP {
 		}
 	}
 
-	
-	
-	
+
+
 }
+
+
+
+

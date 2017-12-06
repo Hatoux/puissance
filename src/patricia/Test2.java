@@ -80,7 +80,7 @@ public class Test2 {
 				pt.addWord(s);
 				hy.add(s);
 			}
-
+			
 			for(String s : listeMots1)
 				if(!pt.recherche(s)) 
 					fail("probleme 1: "+s);

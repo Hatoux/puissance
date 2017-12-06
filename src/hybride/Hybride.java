@@ -7,16 +7,17 @@ import patricia.NodeP;
 import patricia.PatriciaTrie;
 import tools.Tools;
 
+
 public class Hybride {
 	
 	private HNode hd;
+
 	private int nbMots;
 	
 	public Hybride() {
 		hd=null;
 		nbMots=0;
 	}
-	
 	
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ---- primitives ---- -------------------- */ 
@@ -27,7 +28,7 @@ public class Hybride {
 	 */
 	public boolean isEmpty(){ return hd == null; }
 
-	
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  fonctions avancees  -------------------- */
 	
@@ -57,29 +58,28 @@ public class Hybride {
 		return res;
 	}
 
-
-	/* -------------------- -------------------- -------------------- */ 
-	/* -------------------- -------------------- -------------------- */
 	
-	/* partie joe non fusionnee */
-	/* TODO faut que je vois avec toi si elles sont ok */
-
-	
+	/* TODO comment ca se passe si l arbre est vide 3 ou 1 */
+	/**
+	 * @return int: le nombre de pointeur nul dans l'Hybride
+	 */
+	public int comptageNil(){
+		if( isEmpty() ) return 1;
+		return hd.comptageNil();
+	}
 	
 	public void add(String s) throws BadArgumentException{
-		/* verifier que le mot est correcte */
-		Tools.checkWord("Hybride.add", s);
-		
+		if(s.length()==0)
+			throw new BadArgumentException("Hybride.addWord: w est une chaine vide");
 		if(hd==null)
 			hd=new HNode(null, s.charAt(0)+"", null, null, null);
-		hd.add(s.substring(0),nbMots);
+		hd.add(s,nbMots);
 		nbMots++;
 
 	}
 	
-	public boolean rechercher(String w) throws BadArgumentException {
-		/* verifier que le mot est correcte */
-		Tools.checkWord("Hybride.rechercher", w);
+	public boolean rechercher(String w) {
+		/* ajout d'EPSILON a la fin du mot */
 
 		if(hd != null)
 			return hd.rechercher(w);
@@ -98,50 +98,70 @@ public class Hybride {
 	
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		Tools.checkWord("Hybride.prefixe", w);
-
 		if(hd != null){
 			return hd.prefixe(w);
 		}
 		return 0;
 	}
 	
+//	public PatriciaTrie toPatriciaTrie() {
+//		PatriciaTrie n = new PatriciaTrie();
+//		if(hd!=null) {
+//			n.initFils();
+//			NodeP[] tabFils=n.getTabFils();
+//			tabFils[hd.getPrefix().charAt(0)]=hd.parcoursProfondeur(new StringBuilder(""));
+//			n.incNbFils();
+//			HNode previous=hd.getPrevious();
+//			HNode next=hd.getNext();
+//			while(next!=null || previous!=null) {
+//				if(next!=null) {
+//					tabFils[next.getPrefix().charAt(0)]=next.parcoursProfondeur(new StringBuilder(""));
+//					next=next.getNext();
+//					n.incNbFils();;
+//				}
+//				if(previous!=null) {
+//					tabFils[previous.getPrefix().charAt(0)]=previous.parcoursProfondeur(new StringBuilder(""));
+//					previous=previous.getPrevious();
+//					n.incNbFils();
+//				}
+//			}
+//		}
+//		return n;
+//	}
+	
 	public PatriciaTrie toPatriciaTrie() {
-		PatriciaTrie n = new PatriciaTrie();
+		PatriciaTrie p = new PatriciaTrie();
 		if(hd!=null) {
-			n.initFils();
-			NodeP[] tabFils=n.getTabFils();
-			tabFils[hd.getPrefix().charAt(0)]=hd.parcoursProfondeur(new StringBuilder(""));
-			n.incNbFils();
-			HNode previous=hd.getPrevious();
-			HNode next=hd.getNext();
-			while(next!=null || previous!=null) {
-				if(next!=null) {
-					tabFils[next.getPrefix().charAt(0)]=next.parcoursProfondeur(new StringBuilder(""));
-					next=next.getNext();
-					n.incNbFils();;
-				}
-				if(previous!=null) {
-					tabFils[previous.getPrefix().charAt(0)]=previous.parcoursProfondeur(new StringBuilder(""));
-					previous=previous.getPrevious();
-					n.incNbFils();
-				}
-			}
+			NodeP[] tabFils=new NodeP[PatriciaTrie.TAILLE_ALPHABET];
+			NodeP n =new NodeP();
+			n.setTabFils(tabFils);
+			hd.conversion(n, new StringBuilder());
+			p.setNbFils(n.getNbFils());
+			p.setTabFils(n.getTabFils());
+//			tabFils[hd.getPrefix().charAt(0)]=hd. conver(new StringBuilder(""));
+//			n.incNbFils();
+//			HNode previous=hd.getPrevious();
+//			HNode next=hd.getNext();
+//			while(next!=null || previous!=null) {
+//				if(next!=null) {
+//					tabFils[next.getPrefix().charAt(0)]=next.parcoursProfondeur(new StringBuilder(""));
+//					next=next.getNext();
+//					n.incNbFils();;
+//				}
+//				if(previous!=null) {
+//					tabFils[previous.getPrefix().charAt(0)]=previous.parcoursProfondeur(new StringBuilder(""));
+//					previous=previous.getPrevious();
+//					n.incNbFils();
+//				}
+//			}
+//			hd.conversion(tabFils, new StringBuilder(hd.getPrefix()));
+//			for( int i = 0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
+//				if(tabFils[i]!=null)
+//					n.incNbFils();
 		}
-		return n;
+		return p;
 	}
 	
-	/* partie Hatem non fusionnee */
-	
-	/* TODO comment ca se passe si l arbre est vide 3 ou 1 */
-	/**
-	 * @return int: le nombre de pointeur nul dans l'Hybride
-	 */
-	public int comptageNil(){
-		if( isEmpty() ) return 1;
-		return hd.comptageNil();
-	}
-
 	
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  ----- autres -----  -------------------- */
@@ -158,6 +178,24 @@ public class Hybride {
 	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
