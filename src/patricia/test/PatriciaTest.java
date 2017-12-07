@@ -129,6 +129,8 @@ public class PatriciaTest extends TestCase {
 		} catch (Exception e) {
 			fail("PatriciaTest.testAddWord --> " + e.getMessage());
 		}
+		
+		/* TODO ajout d un mot deja existant */
 	}
 
 	@Test

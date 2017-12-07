@@ -27,6 +27,9 @@ public class Hybride {
 	 * @return true si l'arbre est vide, false sinon
 	 */
 	public boolean isEmpty(){ return hd == null; }
+	
+	public int getNbMot(){ return nbMots; }
+	public HNode getHd(){ return hd; }
 
 
 	/* -------------------- -------------------- -------------------- */ 
