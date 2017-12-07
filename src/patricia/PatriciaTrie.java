@@ -41,12 +41,12 @@ public class PatriciaTrie {
 	public void incNbFils() { nbFils++;	}
 	public void setNbFils(int nbFils) {	this.nbFils = nbFils; }
 
-//	public NodeP filsAIndex(int i) {
-//	return tabFils[i];
-//}
+	//	public NodeP filsAIndex(int i) {
+	//	return tabFils[i];
+	//}
 
-	
-	
+
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  fonctions avancees  -------------------- */
 
@@ -59,7 +59,7 @@ public class PatriciaTrie {
 	public void addWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.addWord", w);
-		
+
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
 
@@ -85,7 +85,7 @@ public class PatriciaTrie {
 	public boolean recherche(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.recherche", w);
-		
+
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
 
@@ -97,10 +97,10 @@ public class PatriciaTrie {
 		return false;
 	}
 
-	
+
 	/**
-	 * compte le nombre de mots dans le Patricia trie courant
-	 * @return le nombre de mots
+	 * compte le nombre de mots dans le Patricia trie
+	 * @return int -> le nombre de mots
 	 */
 	public int comptageMot(){
 		if(tabFils != null){
@@ -113,7 +113,28 @@ public class PatriciaTrie {
 		return 0;
 	}
 
+	/**
+	 * compte le nombre de pointeur vers null dans le Patricia trie
+	 * @return int -> le nombre de pointeur vers null
+	 */
+	public int comptageNil(){
+		int r = 0;
+		if(tabFils!=null)
+			for(int i=0;i<tabFils.length;i++)
+				if(tabFils[i]!=null) 
+					r+=tabFils[i].comptageNil();
+				else
+					r++;
+		return r;
+	}
 
+
+	/**
+	 * methode qui donne le nombre de mots presents commencant par le prefixe passe en parametre
+	 * @param w:String -> prefixe
+	 * @return int -> le nombre de mots presents commencant par w
+	 * @throws BadArgumentException
+	 */
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.prefixe", w);
@@ -125,23 +146,18 @@ public class PatriciaTrie {
 		return 0;
 	}
 
-	
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- -------------------- -------------------- */ 
 
-	
+
 
 
 	/* ---------- a ajouter ---------- */
 
 	public void deleteWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
-		for(int i=0; i<w.length(); i++){
-			if(w.length() == 0)
-				throw new BadArgumentException("PatriciaTrie.addWord: w est une chaine vide");
-			else if(w.charAt(i) == EPSILON.charAt(0))
-				throw new BadArgumentException("PatriciaTrie.addWord: w contient le caractere EPSILON");
-		}
+		Tools.checkWord("PatriciaTrie.recherche", w);
 
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
@@ -180,21 +196,11 @@ public class PatriciaTrie {
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
-										tabFils[i].toString2(lr, new StringBuilder(""));
+					tabFils[i].toString2(lr, new StringBuilder(""));
 				}
 			}
 		}
 		return lr;
-	}
-	public int comptageNil(){
-		int r = 0;
-		if(tabFils!=null)
-			for(int i=0;i<tabFils.length;i++)
-				if(tabFils[i]!=null) 
-					r+=tabFils[i].comptageNil();
-				else
-					r++;
-		return r;
 	}
 
 	public int hauteur() {
@@ -259,7 +265,7 @@ public class PatriciaTrie {
 		}
 		return p1;
 	}
-	
+
 
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  ----- autres -----  -------------------- */

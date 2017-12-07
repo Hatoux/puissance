@@ -2,7 +2,6 @@ package patricia;
 
 import java.util.ArrayList;
 
-
 import exceptions.WrongAccessException;
 
 
@@ -139,10 +138,9 @@ public class NodeP {
 		}else return prefix.compareTo(w) == 0;
 	}
 
-
 	/**
 	 * compte le nombre de mots dans le Patricia trie courant
-	 * @return le nombre de mots
+	 * @return int -> le nombre de mots
 	 */
 	public int comptageMot(){
 		if(tabFils != null){
@@ -155,7 +153,28 @@ public class NodeP {
 		return 1;
 	}
 
+	/**
+	 * compte le nombre de pointeur vers null dans le Patricia trie courant
+	 * @return int -> le nombre de pointeur vers null
+	 */
+	public int comptageNil(){
+		int r = 0;
+		if(tabFils!=null)
+			for(int i=0;i<tabFils.length;i++)
+				if(tabFils[i]!=null) 
+					r+=tabFils[i].comptageNil();
+				else
+					r++;
+		return r;
+	}
 
+
+
+	/**
+	 * methode qui donne le nombre de mots presents commencant par le prefixe passe en parametre
+	 * @param w:String -> prefixe
+	 * @return int -> le nombre de mots presents commencant par w
+	 */
 	public int prefixe(String w){
 		String prefixCommun = Ptools.getPrefixCommun(prefix, w);
 		String resteMot = w.substring(prefixCommun.length());
@@ -252,16 +271,8 @@ public class NodeP {
 			}
 		}
 	}
-	public int comptageNil(){
-		int r = 0;
-		if(tabFils!=null)
-			for(int i=0;i<tabFils.length;i++)
-				if(tabFils[i]!=null) 
-					r+=tabFils[i].comptageNil();
-				else
-					r++;
-		return r;
-	}
+	
+	
 
 	public int hauteur() {
 		int r = 0;
