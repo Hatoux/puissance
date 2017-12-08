@@ -41,7 +41,7 @@ public class HNode{
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  fonctions avancees  -------------------- */
 
-
+	/* TODO: pk cette methode rnevoie un boolean? */
 	public boolean add(String s,int v) {
 
 		if(prefix.codePointAt(0)>s.codePointAt(0)) {

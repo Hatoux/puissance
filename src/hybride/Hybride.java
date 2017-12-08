@@ -11,7 +11,6 @@ import tools.Tools;
 public class Hybride {
 	
 	private HNode hd;
-
 	private int nbMots;
 	
 	public Hybride() {
@@ -62,7 +61,6 @@ public class Hybride {
 	}
 
 	
-	/* TODO comment ca se passe si l arbre est vide 3 ou 1 */
 	/**
 	 * @return int: le nombre de pointeur nul dans l'Hybride
 	 */
@@ -72,8 +70,9 @@ public class Hybride {
 	}
 	
 	public void add(String s) throws BadArgumentException{
-		if(s.length()==0)
-			throw new BadArgumentException("Hybride.addWord: w est une chaine vide");
+		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.add", s);
+		
 		if(hd==null)
 			hd=new HNode(null, s.charAt(0)+"", null, null, null);
 		hd.add(s,nbMots);
@@ -81,8 +80,9 @@ public class Hybride {
 
 	}
 	
-	public boolean rechercher(String w) {
-		/* ajout d'EPSILON a la fin du mot */
+	public boolean rechercher(String w) throws BadArgumentException {
+		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.rechercher", w);
 
 		if(hd != null)
 			return hd.rechercher(w);
@@ -101,6 +101,8 @@ public class Hybride {
 	
 	public int prefixe(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
+		Tools.checkWord("Hybride.add", w);
+		
 		if(hd != null){
 			return hd.prefixe(w);
 		}

@@ -170,11 +170,10 @@ public class PatriciaTest extends TestCase {
 			assertFalse("PatriciaTest.recherche --> echec lors du test 11", trie.recherche("bonok"));
 			
 		} catch (Exception e) {
-			fail("PatriciaTest.testPrefixe -> " + e.getMessage());
+			fail("PatriciaTest.testRecherche -> " + e.getMessage());
 		}
 	}
-	
-	
+		
 	@Test
 	public void testComptageMot(){
 		assertTrue("PatriciaTest.comptageMot --> echec lors du test", trie.comptageMot() == 7);

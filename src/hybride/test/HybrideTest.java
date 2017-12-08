@@ -1,12 +1,15 @@
 package hybride.test;
 
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import exceptions.BadArgumentException;
 import hybride.HNode;
 import hybride.Hybride;
 import junit.framework.TestCase;
+import patricia.PatriciaTrie;
 
 public class HybrideTest extends TestCase {
 	
@@ -201,8 +204,468 @@ public class HybrideTest extends TestCase {
 	
 	@Test
 	public void testAdd(){
-		/* TODO ajout du mot  */
-		/* TODO ajout d un mot deja existant */
+		/* test les captures d'exceptions */
+		try {
+			trie.add("");
+			fail("HybrideTest.testAdd: BadArgumentException non capture pour le mot vide");
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.add("hello" + PatriciaTrie.EPSILON);
+			fail("HybrideTest.testAdd: BadArgumentException non capture pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.add("hello" + PatriciaTrie.EPSILON + "toto");
+			fail("HybrideTest.testAdd: BadArgumentException non capture pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		try{
+			HNode tmp = null;
+			/* TODO ajout du mot  */
+			trie.add("bonjour!!!");
+			
+			tmp = trie.getHd();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
+					tmp.getPrefix().compareTo("b") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
+					tmp.getNext() != null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
+					tmp.getPrefix().compareTo("o") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
+					tmp.getValue() != null && tmp.getValue().intValue() == 3);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
+					tmp.getPrefix().compareTo("n") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
+					tmp.getPrefix().compareTo("j") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
+					tmp.getNext() != null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
+					tmp.getPrefix().compareTo("o") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
+					tmp.getPrefix().compareTo("u") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
+					tmp.getValue() != null && tmp.getValue().intValue() == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
+					tmp.getPrefix().compareTo("r") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
+					tmp.getValue() != null && tmp.getValue().intValue() == 7);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
+					tmp.getSon() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
+					tmp.getNext() == null);
+
+			/* TODO ajout d un mot deja existant */
+			trie.add("bonjour!!!");
+			
+			tmp = trie.getHd();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("b") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() != null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("o") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() != null && tmp.getValue().intValue() == 3);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("n") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("j") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() != null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("o") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("u") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+			
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() != null && tmp.getValue().intValue() == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("r") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+
+			tmp = tmp.getSon();
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getValue() != null && tmp.getValue().intValue() == 7);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrefix().compareTo("!") == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getSon() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+					tmp.getNext() == null);
+			
+		}catch(Exception e){
+			fail("HybrideTest.testAdd --> " + e.getMessage());			
+		}
+	}
+	
+	@Test
+	public void testRecherche(){
+
+		/* test les captures d'exceptions */
+		try {
+			trie.rechercher("");
+			fail("HybrideTest.testRechercher: BadArgumentException non capture pour le mot vide");
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.rechercher("hello" + PatriciaTrie.EPSILON);
+			fail("HybrideTest.testRechercher: BadArgumentException non capture pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.rechercher("hello" + PatriciaTrie.EPSILON + "toto");
+			fail("HybrideTest.testRechercher: BadArgumentException non capture pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		
+		try{
+			/* verifie que tous les mots sont trouvable */
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 1", trie.rechercher("bonjour"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 2", trie.rechercher("bonsoir"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 3", trie.rechercher("bonne"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 4", trie.rechercher("bon"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 5", trie.rechercher("sale"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 6", trie.rechercher("salut"));
+			assertTrue("HybrideTest.testRechercher --> echec lors du test 7", trie.rechercher("bonnenuit"));
+			
+			/* verifie que la methode ne trouve pas des mots inexistant */
+			assertFalse("HybrideTest.testRechercher --> echec lors du test 8", trie.rechercher("sal"));
+			assertFalse("HybrideTest.testRechercher --> echec lors du test 9", trie.rechercher("bonjour!!"));
+			assertFalse("HybrideTest.testRechercher --> echec lors du test 10", trie.rechercher("nice"));
+			assertFalse("HybrideTest.testRechercher --> echec lors du test 11", trie.rechercher("bonok"));
+			
+		} catch (Exception e) {
+			fail("HybrideTest.testRechercher -> " + e.getMessage());
+		}
+	}
+
+	@Test
+	public void testComptageMot(){
+		assertTrue("HybrideTest.testComptageMot --> echec lors du test", trie.comptageMot() == 7);
+	}
+	
+	@Test
+	public void testComptageNil(){
+		assertTrue("HybrideTest.testComptageNil --> echec lors du test", trie.comptageNil() == 47);
+	}
+	
+	@Test
+	public void testListeMot(){
+		ArrayList<String> res = trie.listeMot();
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 1",
+				res.get(0).compareTo("bon") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 2",
+				res.get(1).compareTo("bonjour") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 3",
+				res.get(2).compareTo("bonne") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 4",
+				res.get(3).compareTo("bonnenuit") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 5",
+				res.get(4).compareTo("bonsoir") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 6",
+				res.get(5).compareTo("sale") == 0);
+		assertTrue("HybrideTest.testListeMot --> echec lors du test 7",
+				res.get(6).compareTo("salut") == 0);
+	}
+
+// TODO: IL FAUT CORRIGER CETTE FONCTION
+//	@Test
+//	public void testPrefixe(){
+//		/* test les captures d'exceptions */
+//		try {
+//			trie.prefixe("");
+//			fail("HybrideTest.testPrefixe: BadArgumentException non capture pour le mot vide");
+//		} catch (BadArgumentException e) {}
+//
+//		try {
+//			trie.prefixe("hello" + PatriciaTrie.EPSILON);
+//			fail("HybrideTest.testPrefixe: BadArgumentException non capture pour un mot contenant EPSILON" );
+//		} catch (BadArgumentException e) {}
+//
+//		try {
+//			trie.prefixe("hello" + PatriciaTrie.EPSILON + "toto");
+//			fail("HybrideTest.testPrefixe: BadArgumentException non capture pour un mot contenant EPSILON" );
+//		} catch (BadArgumentException e) {}
+//		
+//		try{
+//			assertTrue("HybrideTest.testPrefixe --> echec lors du test 1", trie.prefixe("bonjour") == 1);
+//			assertTrue("HybrideTest.testPrefixe --> echec lors du test 2", trie.prefixe("bon") == 5);
+//			assertTrue("HybrideTest.testPrefixe --> echec lors du test 3", trie.prefixe("bonne") == 2);
+//			assertTrue("HybrideTest.testPrefixe --> echec lors du test 4", trie.prefixe("salu") == 1);
+//			assertTrue("HybrideTest.testPrefixe --> echec lors du test 5", trie.prefixe("bom") == 0);
+//		} catch (Exception e) {
+//			fail("HybrideTest.testPrefixe -> " + e.getMessage());
+//		}
+//	}
+
+	@Test
+	public void testSuppression(){
+		/* test les captures d'exceptions */
+		try {
+			trie.add("");
+			fail("HybrideTest.testSuppression: BadArgumentException non capture pour le mot vide");
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.add("hello" + PatriciaTrie.EPSILON);
+			fail("HybrideTest.testSuppression: BadArgumentException non capture " 
+					+ "pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		try {
+			trie.add("hello" + PatriciaTrie.EPSILON + "toto");
+			fail("HybrideTest.testSuppression: BadArgumentException non capture "
+					+ "pour un mot contenant EPSILON" );
+		} catch (BadArgumentException e) {}
+
+		try{
+			HNode tmp = null;
+			trie.add("bonyes");
+			trie.suppression("bonsoir");
+		
+			tmp = trie.getHd().getSon().getSon().getSon().getNext();
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
+					tmp.getPrefix().compareTo("n") == 0);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
+					tmp.getNext() != null);
+			
+			tmp = tmp.getNext();
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
+					tmp.getPrefix().compareTo("y") == 0);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
+					tmp.getNext() == null);
+
+			trie.suppression("bonnenuit");
+
+			tmp = trie.getHd().getSon().getSon().getSon().getNext();
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
+					tmp.getPrefix().compareTo("n") == 0);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
+					tmp.getNext() != null);
+
+			tmp = tmp.getNext();
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
+					tmp.getPrefix().compareTo("y") == 0);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
+					tmp.getNext() == null);
+			
+			trie.suppression("bonne");
+
+			tmp = trie.getHd().getSon().getSon().getSon().getNext();
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
+					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
+					tmp.getPrefix().compareTo("y") == 0);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
+					tmp.getPrevious() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
+					tmp.getSon() != null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
+					tmp.getNext() == null);
+
+		}catch(Exception e){
+			fail("HybrideTest.testSuppression --> " + e.getMessage());			
+		}
+
 		
 	}
 	
