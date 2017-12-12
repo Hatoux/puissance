@@ -15,7 +15,7 @@ public class Hybride {
 	
 	public Hybride() {
 		hd=null;
-		nbMots=0;
+		nbMots=0; // TODO ne sert a rien
 	}
 	
 	/* -------------------- -------------------- -------------------- */ 
@@ -29,6 +29,7 @@ public class Hybride {
 	
 	public int getNbMot(){ return nbMots; }
 	public HNode getHd(){ return hd; }
+	public void setHd(HNode n){ hd = n; }
 
 
 	/* -------------------- -------------------- -------------------- */ 
@@ -73,8 +74,10 @@ public class Hybride {
 		/* verifier que le mot est correcte */
 		Tools.checkWord("Hybride.add", s);
 		
-		if(hd==null)
-			hd=new HNode(null, s.charAt(0)+"", null, null, null);
+		if(hd==null){
+//			hd=new HNode(null, s.charAt(0)+"", null, null, null);
+			hd=new HNode(false, s.charAt(0)+"", null, null, null); //TODO modif
+		}
 		hd.add(s,nbMots);
 		nbMots++;
 
@@ -182,6 +185,21 @@ public class Hybride {
 
 	
 
+	
+	public Hybride cloneTrieH(){
+		Hybride res = new Hybride();
+		
+		if(!isEmpty()) res.setHd(hd.clone());
+		return res;
+	}
+	
+	
+	public Hybride fusion(Hybride h2){
+		if(isEmpty()) return h2.cloneTrieH();
+		Hybride res = cloneTrieH();
+		if(!h2.isEmpty()) res.getHd().fusion( h2.cloneTrieH().getHd(), res.getHd());
+		return res;
+	}
 }
 
 
