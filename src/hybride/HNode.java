@@ -462,19 +462,16 @@ public class HNode{
 	 *                       HNode courant, soit un Node situe plus haut que le HNode courant
 	 */
 	public void fusion(HNode n2, HNode pivot){
-		System.out.println("fusion du node " + n2.getPrefix() + " avec le node " + prefix);
 
 		HNode fp = null, fn = null, fs = null;
 		/* on fait en sorte que n2 n'ait plus de fils previous 
 		 * et de fils next pour ne pas creer de boucle dans le trie  */
 		if(n2.getPrevious() != null){
-			System.out.println("le node " + n2.getPrefix() + " n'a plus de previous");
 			fp = n2.getPrevious();
 			n2.setPrevious(null);
 			pivot.fusion(fp, pivot);
 		}
 		if(n2.getNext() != null){
-			System.out.println("le node " + n2.getPrefix() + " n'a plus de next");
 			fn = n2.getNext();
 			n2.setNext(null);
 			pivot.fusion(fn, pivot);
@@ -488,40 +485,15 @@ public class HNode{
 			if(n2.getSon() != null){
 				fs = n2.getSon();
 				n2.setSon(null);
-				if(son == null){
-					System.out.println("le node " + n2.getPrefix() + "est deja existant "
-							+ "mais pas ses fils.");
-					System.out.println("=> son = " + n2.getPrefix() + ".getPrefix()");
-					son = fs;
-				}
-				else{
-					System.out.println("fusion de " + prefix 
-							+ ".son avec " + n2.getPrefix() + ".getSon()");
-					son.fusion(fs, son);
-				}
+				if(son == null)	son = fs;
+				else son.fusion(fs, son);
 			}
 		}else if( n2.getPrefix().codePointAt(0) < prefix.codePointAt(0) ){
-			System.out.println(n2.getPrefix() + " < " + prefix);
-			if(previous == null){
-				System.out.println("le node " + n2.getPrefix() + " devient fils de previous " + prefix);
-				previous = n2;
-			}
-			else{
-				System.out.println(prefix + " a deja un previous = > " + 
-						prefix + ".previous.fusion(" + n2.getPrefix() + ", pivot)");
-				previous.fusion(n2, pivot);
-			}
+			if(previous == null) previous = n2;
+			else previous.fusion(n2, pivot);
 		}else{ /* n2.getPrefix().codePointAt(0) > prefix.codePointAt(0) */
-			System.out.println(n2.getPrefix() + " > " + prefix);
-			if(next == null){
-				System.out.println("le node " + n2.getPrefix() + " devient fils next de " + prefix);
-				next = n2;
-			}
-			else{
-				System.out.println(prefix + " a deja un next = > " + 
-						prefix + ".next.fusion(" + n2.getPrefix() + ", pivot)");
-				next.fusion(n2, pivot);
-			}
+			if(next == null) next = n2;
+			else next.fusion(n2, pivot);
 		}
 	}
 	
