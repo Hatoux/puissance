@@ -11,32 +11,27 @@ import patricia.PatriciaTrie;
 
 public class HNode{
 
-	private boolean word; // TODO modif
-//	private Integer value; //TODO on devrait changer ca par un boolean simplement
+	private boolean word;
 	private String prefix;
 	private HNode previous;
 	private HNode next;
 	private HNode son;
 
-	public HNode(boolean w, /*Integer v,*/  String pr, HNode p, HNode s, HNode n) {
+	public HNode(boolean w, String pr, HNode p, HNode s, HNode n) {
 		previous=p;
 		next=n;
-//		value=v;
 		son=s;
 		prefix=pr;
-		
-		word = w; // TODO modif
+		word = w; 
 		
 	}
 	
-	public HNode(boolean w, /*Integer v,*/ String prefix){
-//		value = v;
+	public HNode(boolean w, String prefix){
 		this.prefix = prefix;
 		previous = null;
 		son = null;
 		next = null;
-		
-		word = w; // TODO modif
+		word = w;
 	}
 
 
@@ -44,9 +39,7 @@ public class HNode{
 	/* -------------------- ---- primitives ---- -------------------- */ 
 
 
-//	public Integer getValue() {	return value; }
-	public boolean isWord(){ return word; } // TODO modif
-	
+	public boolean isWord(){ return word; }
 	public String getPrefix() { return prefix; }
 	public HNode getPrevious() { return previous; }
 	public HNode getNext() { return next; }
@@ -64,35 +57,27 @@ public class HNode{
 
 		if(prefix.codePointAt(0)>s.codePointAt(0)) {
 			if(previous==null)
-				previous=new HNode(false, /* null,*/ s.charAt(0)+"", null, null, null);
+				previous=new HNode(false, s.charAt(0)+"", null, null, null);
 			previous.add(s, v);
 		}
 
 		if(prefix.codePointAt(0)==s.codePointAt(0)) {
 			if(s.length()==1) {
-				//				if(value==null) {
-				//					value=v;
-				//					return true;
-				//				}else 
-				//					return false;
-
-				// TODO modif
 				if(word){
 					return false;
 				}else{
 					word = true;
 					return true;
 				}
-				// TODO fin modif
 			}
 			if(son==null)
-				son=new HNode(false, /*null,*/ s.charAt(1)+"", null, null, null); // TODO modif
+				son=new HNode(false, s.charAt(1)+"", null, null, null);
 			son.add(s.substring(1), v);
 		}
 
 		if(prefix.codePointAt(0)<s.codePointAt(0)) {
 			if(next==null)
-				next= new HNode(false, /* null,*/ s.charAt(0)+"", null, null, null); // TODO modif
+				next= new HNode(false, s.charAt(0)+"", null, null, null);
 			next.add(s, v);
 		}
 
@@ -110,12 +95,8 @@ public class HNode{
 
 
 		if(prefix.codePointAt(0)==s.codePointAt(0)) {
-			if(s.length()==1){
-//				return value!=null;
-				return word; // TODO modif
-			}
-			if(son==null)
-				return false;
+			if(s.length()==1) return word;
+			if(son==null) return false;
 			return son.rechercher(s.substring(1));
 		}
 
@@ -124,7 +105,6 @@ public class HNode{
 				return false;
 			return next.rechercher(s);
 		}
-
 		return false;
 	}
 
@@ -134,9 +114,7 @@ public class HNode{
 	public int comptageMot() {
 		int compteur = 0;
 
-//		if(value!=null)
-//			compteur++;
-		if(word) compteur ++; // TODO modif
+		if(word) compteur ++;
 
 		if(previous!=null)
 			compteur+=previous.comptageMot();
@@ -188,8 +166,7 @@ public class HNode{
 			next.conversion(p, new StringBuilder(s));
 		}
 
-//		if(value==null) {
-		if(!word){ // TODO modif
+		if(!word){
 			
 			if(son.previous==null && son.next==null) {
 				s.append(prefix);
@@ -241,8 +218,7 @@ public class HNode{
 		if(previous != null) previous.listeMot(res, prefix);
 
 		/* ajout du mot courant si c'est un mot */
-//		if(value != null) res.add(prefix + this.prefix);
-		if(word) res.add(prefix + this.prefix); //TODO modif 
+		if(word) res.add(prefix + this.prefix);
 		
 
 		/* recuperation des mots present dans le fils du milieu */
@@ -287,15 +263,11 @@ public class HNode{
 
 	// WARNING! cette fonction peut potentiellemnt desequilibrer l'arbre
 	public boolean suppression(HNode father, String word){
-//		System.out.println("Dans le node " + prefix); TODO
 		if(word.codePointAt(0) == prefix.codePointAt(0)){
-//			System.out.println("word.codePointAt(0) == prefix.codePointAt(0)"); TODO
 			if(word.length() > 1){ 
-//				System.out.println("word.length() > 1"); TODO
 				if(son != null && son.suppression(this, word.substring(1)) ){ /* implique son = null */
 					if(father.getSon() != null && father.getSon().equals(this)){
-						if(!this.word){ // TODO modif
-//						if(value == null){ /* Dans ce cas, le Node courant doit etre supprimer */
+						if(!this.word){ /* Dans ce cas, le Node courant doit etre supprimer */
 							if(previous == null && next == null){ 
 								/* Seul cas ou on renvoie true (dans if(word.length() > 1) */
 								father.setSon(null);
@@ -333,13 +305,8 @@ public class HNode{
 					}
 				}
 			}else{ /* word.length() == 1 */
-//				if(value != null){ /* mot a supprimer trouve */
-//					value = null;
-
-				// TODO modif
 				if(this.word){
 					this.word = false;
-					// TODO  finmodif
 				
 					if(son == null){
 						if(father.getSon() != null && father.getSon().equals(this)){
@@ -436,12 +403,7 @@ public class HNode{
 
 	// TODO juste est ce que c estbon le prefix + ""
 	public HNode clone(){
-		
-//		if(value != null) return new HNode(new Integer( value.intValue() ), prefix + "");
-//		return new HNode(new Integer( value.intValue() ), prefix + "");
-		
-		HNode res = new HNode(word, prefix + ""); //TODO modif
-
+		HNode res = new HNode(word, prefix + "");
 		
 		if(previous != null) res.setPrevious(previous.clone());
 		if(son != null) res.setSon(son.clone());
@@ -451,9 +413,6 @@ public class HNode{
 
 	
 	
-	/* TODO: ah ouai petit probleme sur le nombre de mots, apre fusion il faudrai reparcourrir l'arbre
-	connaitre le nombre de mot c'est un peu relou,
-	 du coup je pense qu on va mettre un oolean  pour nbMot de hybride */
 	/**
 	 * methode fusionnant 2 sous-trie. Attention, modifie les 2 sous-trieHybride qui
 	 * sont concerne.
@@ -536,8 +495,6 @@ public class HNode{
 		}
 		return this;
 	}
-	
-
 
 }
 

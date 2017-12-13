@@ -169,21 +169,6 @@ public class Hybride {
 		}
 		return p;
 	}
-	
-	
-	/* -------------------- -------------------- -------------------- */ 
-	/* --------------------  ----- autres -----  -------------------- */
-
-	
-	/**
-	 * affichage rapide, pas tres claire mais permet de visualiser un peu
-	 */
-	public void showHybride(){
-		if(hd != null) hd.showHNode(0);
-		else System.out.println("l'arbre est vide");
-	}
-
-	
 
 	
 	public Hybride cloneTrieH(){
@@ -200,6 +185,23 @@ public class Hybride {
 		if(!h2.isEmpty()) res.getHd().fusion( h2.cloneTrieH().getHd(), res.getHd());
 		return res;
 	}
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  ----- autres -----  -------------------- */
+
+	
+	/**
+	 * affichage rapide, pas tres claire mais permet de visualiser un peu
+	 */
+	public void showHybride(){
+		if(hd != null) hd.showHNode(0);
+		else System.out.println("l'arbre est vide");
+	}
+
+	
+
+	
 }
 
 

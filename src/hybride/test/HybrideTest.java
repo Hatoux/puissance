@@ -41,161 +41,161 @@ public class HybrideTest extends TestCase {
 		assertTrue(trie.getNbMot() == 7);
 
 		tmp = trie.getHd();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("b") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 3);
+		assertTrue(tmp.isWord() == true);
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("j") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 0);
+		assertTrue(tmp.isWord() == true);
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = trie.getHd().getSon().getSon().getSon().getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getPrevious();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 2);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 6);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = trie.getHd().getSon().getSon().getSon().getNext().getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 1);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = trie.getHd().getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("a") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("l") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 4);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 5);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
@@ -222,12 +222,10 @@ public class HybrideTest extends TestCase {
 
 		try{
 			HNode tmp = null;
-			/* TODO ajout du mot  */
 			trie.add("bonjour!!!");
 
 			tmp = trie.getHd();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 1", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
 					tmp.getPrefix().compareTo("b") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 1",
@@ -238,8 +236,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() != null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 2", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
 					tmp.getPrefix().compareTo("o") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 2",
@@ -250,8 +247,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 3);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 3", tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
 					tmp.getPrefix().compareTo("n") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 3",
@@ -262,8 +258,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 4", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
 					tmp.getPrefix().compareTo("j") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 4",
@@ -274,8 +269,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() != null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 5", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
 					tmp.getPrefix().compareTo("o") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 5",
@@ -286,8 +280,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 6", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
 					tmp.getPrefix().compareTo("u") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 6",
@@ -298,8 +291,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 0);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 7", tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
 					tmp.getPrefix().compareTo("r") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 7",
@@ -310,8 +302,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 8", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
 					tmp.getPrefix().compareTo("!") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 8",
@@ -322,8 +313,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 9", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
 					tmp.getPrefix().compareTo("!") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 9",
@@ -334,8 +324,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 7);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 10", tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
 					tmp.getPrefix().compareTo("!") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
@@ -345,12 +334,10 @@ public class HybrideTest extends TestCase {
 			assertTrue("HybrideTest.testAdd --> echec lors du test 10",
 					tmp.getNext() == null);
 
-			/* TODO ajout d un mot deja existant */
 			trie.add("bonjour!!!");
 
 			tmp = trie.getHd();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testAdd --> echec lors du test 11", !tmp.isWord());
 			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
 					tmp.getPrefix().compareTo("b") == 0);
 			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
@@ -361,111 +348,102 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() != null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 12", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 12",
 					tmp.getPrefix().compareTo("o") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 12",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 12",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 12",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 3);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 13", tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 13",
 					tmp.getPrefix().compareTo("n") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 13",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 13",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 13",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 14", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 14",
 					tmp.getPrefix().compareTo("j") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 14",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 14",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 14",
 					tmp.getNext() != null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 15", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 15",
 					tmp.getPrefix().compareTo("o") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 15",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 15",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 15",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 16", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 16",
 					tmp.getPrefix().compareTo("u") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 16",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 16",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 16",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 17", tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 17",
 					tmp.getPrefix().compareTo("r") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 17",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 17",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 17",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 18", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 18",
 					tmp.getPrefix().compareTo("!") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 18",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 18",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 18",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 19", !tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 19",
 					tmp.getPrefix().compareTo("!") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 19",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 19",
 					tmp.getSon() != null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 19",
 					tmp.getNext() == null);
 
 			tmp = tmp.getSon();
-			//			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
-			//					tmp.getValue() != null && tmp.getValue().intValue() == 7);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 20", tmp.isWord());
+			assertTrue("HybrideTest.testAdd --> echec lors du test 20",
 					tmp.getPrefix().compareTo("!") == 0);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 20",
 					tmp.getPrevious() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 20",
 					tmp.getSon() == null);
-			assertTrue("HybrideTest.testAdd --> echec lors du test 11",
+			assertTrue("HybrideTest.testAdd --> echec lors du test 20",
 					tmp.getNext() == null);
 
 		}catch(Exception e){
@@ -602,8 +580,7 @@ public class HybrideTest extends TestCase {
 			trie.suppression("bonsoir");
 
 			tmp = trie.getHd().getSon().getSon().getSon().getNext();
-			//			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",!tmp.isWord());
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
 					tmp.getPrefix().compareTo("n") == 0);
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 1",
@@ -614,8 +591,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() != null);
 
 			tmp = tmp.getNext();
-			//			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",!tmp.isWord());
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
 					tmp.getPrefix().compareTo("y") == 0);
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 2",
@@ -628,8 +604,7 @@ public class HybrideTest extends TestCase {
 			trie.suppression("bonnenuit");
 
 			tmp = trie.getHd().getSon().getSon().getSon().getNext();
-			//			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",!tmp.isWord());
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
 					tmp.getPrefix().compareTo("n") == 0);
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 3",
@@ -640,8 +615,7 @@ public class HybrideTest extends TestCase {
 					tmp.getNext() != null);
 
 			tmp = tmp.getNext();
-			//			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",!tmp.isWord());
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
 					tmp.getPrefix().compareTo("y") == 0);
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 4",
@@ -654,8 +628,7 @@ public class HybrideTest extends TestCase {
 			trie.suppression("bonne");
 
 			tmp = trie.getHd().getSon().getSon().getSon().getNext();
-			//			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
-			//					tmp.getValue() == null);
+			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",!tmp.isWord());
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
 					tmp.getPrefix().compareTo("y") == 0);
 			assertTrue("HybrideTest.testSuppression --> echec lors du test 5",
@@ -675,172 +648,167 @@ public class HybrideTest extends TestCase {
 		HNode tmp;
 		Hybride c = trie.cloneTrieH();
 
-		//		assertTrue(c.getNbMot() == 7);
 
 		tmp = c.getHd();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("b") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 3);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("j") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 0);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = c.getHd().getSon().getSon().getSon().getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getPrevious();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 2);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 6);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = c.getHd().getSon().getSon().getSon().getNext().getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 1);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = c.getHd().getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("a") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("l") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 4);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getNext();
-		//		assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//		assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 5);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
-
-
-
-
 	}
 
 	@Test
@@ -862,51 +830,49 @@ public class HybrideTest extends TestCase {
 		Hybride f = trie.fusion(h2);
 
 		tmp = f.getHd();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("b") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 3);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("j") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
-
-		
 		
 		tmp = tmp.getPrevious();
-		//TODO ajouter test pour word
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("d") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("a") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("c") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
@@ -915,95 +881,91 @@ public class HybrideTest extends TestCase {
 		
 		
 		tmp = f.getHd().getSon().getSon().getSon().getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 0);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = f.getHd().getSon().getSon().getSon().getNext();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getPrevious();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getPrevious();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("l") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 		
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("l") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
-
-		
-		
-		
 		
 		tmp = f.getHd().getSon().getSon().getSon().getNext().getPrevious().getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 2);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("n") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 6);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
@@ -1011,14 +973,14 @@ public class HybrideTest extends TestCase {
 
 		
 		tmp = f.getHd().getSon().getSon().getSon().getNext().getPrevious().getNext();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 		
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 6);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("k") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
@@ -1027,107 +989,95 @@ public class HybrideTest extends TestCase {
 		
 		
 		tmp = f.getHd().getSon().getSon().getSon().getNext().getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("o") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 1);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("r") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = f.getHd().getNext();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("s") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("a") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() != null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("l") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 4);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() != null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() != null);
 		
 		tmp = tmp.getPrevious();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("a") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 		
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("d") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 		
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("e") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = f.getHd().getNext().getSon().getSon().getSon().getNext();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(!tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("u") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() != null);
 		assertTrue(tmp.getNext() == null);
 
 		tmp = tmp.getSon();
-		//			assertTrue(tmp.getValue() != null && tmp.getValue().intValue() == 5);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("t") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
 		
 		tmp = f.getHd().getNext().getSon().getNext();
-		//			assertTrue(tmp.getValue() == null);
+		assertTrue(tmp.isWord());
 		assertTrue(tmp.getPrefix().compareTo("i") == 0);
 		assertTrue(tmp.getPrevious() == null);
 		assertTrue(tmp.getSon() == null);
 		assertTrue(tmp.getNext() == null);
-
-
-
-
-
-
-
-
-
-
-
-
 
 	}
 
