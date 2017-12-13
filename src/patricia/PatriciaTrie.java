@@ -10,7 +10,11 @@ package patricia;
 
 import java.util.ArrayList;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import exceptions.BadArgumentException;
+import exceptions.WrongAccessException;
+import hybride.Hybride;
 import tools.Tools;
 
 public class PatriciaTrie {
@@ -268,7 +272,25 @@ public class PatriciaTrie {
 
 
 	/* -------------------- -------------------- -------------------- */ 
-	/* --------------------  ----- autres -----  -------------------- */
+	/* -------------------- ---- toHybride ----- -------------------- */
+	
+	public Hybride toHybride(){
+		Hybride res = new Hybride();
+		if(tabFils != null) 
+			try{
+				res.setHd(NodeP.horizontalTraduction(tabFils));
+			}catch(WrongAccessException e){
+				e.getMessage();
+				System.out.println("--- ECHEC DE LA CONVESION DU PATRICIA ---");
+				System.out.println("MOTIF: la methode horizontalTraduction() appel la methode" 
+						+ "verticalTraduction() sur le NodeP EPSILON");
+			}
+		return res;
+	}
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ------ autres ------ -------------------- */
 
 	/**
 	 * permet de visualiser chaque noeud du Patricia trie

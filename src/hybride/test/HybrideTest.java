@@ -38,8 +38,6 @@ public class HybrideTest extends TestCase {
 	public void testTrie(){
 		HNode tmp;
 
-		assertTrue(trie.getNbMot() == 7);
-
 		tmp = trie.getHd();
 		assertTrue(tmp.isWord() == false);
 		assertTrue(tmp.getPrefix().compareTo("b") == 0);

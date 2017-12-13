@@ -3,6 +3,7 @@ package patricia;
 import java.util.ArrayList;
 
 import exceptions.WrongAccessException;
+import hybride.HNode;
 
 
 
@@ -231,13 +232,13 @@ public class NodeP {
 
 	}
 
-	
+
 
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- -------------------- -------------------- */ 
 
-	
-	
+
+
 	public void toString(ArrayList<String>ls, String s) {
 		if(prefix.charAt(prefix.length()-1)==PatriciaTrie.EPSILON.charAt(0)) {
 			if(prefix.length()>1)
@@ -271,8 +272,8 @@ public class NodeP {
 			}
 		}
 	}
-	
-	
+
+
 
 	public int hauteur() {
 		int r = 0;
@@ -395,7 +396,94 @@ public class NodeP {
 		}
 		return result;
 	}
-	
+
+
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ---- toHybride ----- -------------------- */
+
+
+
+	/* legere optimisation : etant donne que les fichiers fournis contiendront en grande 
+	 * majorité des lettres minuscules. Le parcourt du tableau de fils des PatriciaTrie 
+	 * debutera à partir de tabFils['m']. */
+	public static HNode horizontalTraduction(NodeP[] tabFils) throws WrongAccessException{
+		HNode tmpH = null, rootLevel = null;
+
+		/* parcourt de tabFils['m'] --> tabFils[PatriciaTrie.TAILLE_ALPHABET -1] */
+		for(int i=(int) 'm'; i<PatriciaTrie.TAILLE_ALPHABET;i++)
+			if(i != PatriciaTrie.EPSILON.codePointAt(0) && tabFils[i] != null){
+				if(rootLevel == null){
+					rootLevel = tabFils[i].verticalTraduction();
+					tmpH = rootLevel;
+				}else{
+					tmpH.setNext( tabFils[i].verticalTraduction() );
+					tmpH = tmpH.getNext();
+				}
+			}
+
+		/* parcourt de tabFils['l'] --> tabFils[0] */
+		if(rootLevel != null ) tmpH = rootLevel;
+		for(int i=(int) 'l';i>=0;i--)
+			if(i != PatriciaTrie.EPSILON.codePointAt(0) && tabFils[i] != null){
+				if(rootLevel == null){
+					rootLevel = tabFils[i].verticalTraduction();
+					tmpH = rootLevel;
+				}else{
+					tmpH.setPrevious( tabFils[i].verticalTraduction() );
+					tmpH = tmpH.getPrevious();
+				}
+			}
+		return rootLevel;
+	}
+
+
+	public HNode verticalTraduction() throws WrongAccessException{
+		HNode rootLevel = null, tmpH = null;
+		int i;
+
+		/* pour forcer horizontalTraduction() a ne pas appemer cette 
+		 * methode sur le NodeP EPSILON */
+		if(prefix.compareTo(PatriciaTrie.EPSILON) == 0)
+			throw new WrongAccessException("PatriciaTrie.verticalTraduction -> " 
+					+ "traitement du node EPSILON non traite par cette methode");
+		for(i=0; i<prefix.length() - 2; i++){
+			if(rootLevel == null){
+				rootLevel = new HNode(false, prefix.charAt(i) + "");
+				tmpH = rootLevel;
+			}else{
+				tmpH.setSon( new HNode(false, prefix.charAt(i) + "") );
+				tmpH = tmpH.getSon();
+			}
+		}
+
+		/* i == prefix.length()-2 pour la gestion du PatriciaTrie.EPSILON */
+		if(prefix.charAt(i+1) == PatriciaTrie.EPSILON.charAt(0)){
+			/* fin de la semi-recursion avec horizontalTraduction() */
+			if(rootLevel == null) rootLevel = new HNode(true, prefix.charAt(i) + "");
+			else tmpH.setSon( new HNode(true, prefix.charAt(i) + "") );
+		}else{
+			/* la semi-recursion avec horizontalTraduction() doit continuer */
+			if(rootLevel == null){
+				rootLevel = new HNode(false, prefix.charAt(i) + "");
+				tmpH = rootLevel;
+			}else{
+				tmpH.setSon(new HNode(false, prefix.charAt(i) + ""));
+				tmpH = tmpH.getSon();
+			}
+
+			if(tabFils[PatriciaTrie.EPSILON.codePointAt(0)] == null)
+				tmpH.setSon(new HNode(false, prefix.charAt(i+1) + ""));
+			else /* implique tabFils contient le NodeP EPSILON */
+				tmpH.setSon(new HNode(true, prefix.charAt(i+1) + ""));
+			tmpH = tmpH.getSon();
+
+			tmpH.setSon( horizontalTraduction(tabFils));
+		}
+		return rootLevel;
+	}
+
+
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* --------------------  ----- autres -----  -------------------- */
 
@@ -416,8 +504,6 @@ public class NodeP {
 				}
 		}
 	}
-
-
 
 }
 

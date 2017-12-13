@@ -3,7 +3,6 @@ package hybride;
 
 import java.util.ArrayList;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import patricia.NodeP;
 import patricia.PatriciaTrie;
@@ -53,12 +52,12 @@ public class HNode{
 	/* --------------------  fonctions avancees  -------------------- */
 
 	/* TODO: pk cette methode rnevoie un boolean? */
-	public boolean add(String s,int v) {
+	public boolean add(String s) {
 
 		if(prefix.codePointAt(0)>s.codePointAt(0)) {
 			if(previous==null)
 				previous=new HNode(false, s.charAt(0)+"", null, null, null);
-			previous.add(s, v);
+			previous.add(s);
 		}
 
 		if(prefix.codePointAt(0)==s.codePointAt(0)) {
@@ -72,13 +71,13 @@ public class HNode{
 			}
 			if(son==null)
 				son=new HNode(false, s.charAt(1)+"", null, null, null);
-			son.add(s.substring(1), v);
+			son.add(s.substring(1));
 		}
 
 		if(prefix.codePointAt(0)<s.codePointAt(0)) {
 			if(next==null)
 				next= new HNode(false, s.charAt(0)+"", null, null, null);
-			next.add(s, v);
+			next.add(s);
 		}
 
 		return false;

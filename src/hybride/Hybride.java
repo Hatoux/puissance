@@ -11,11 +11,9 @@ import tools.Tools;
 public class Hybride {
 	
 	private HNode hd;
-	private int nbMots;
 	
 	public Hybride() {
 		hd=null;
-		nbMots=0; // TODO ne sert a rien
 	}
 	
 	/* -------------------- -------------------- -------------------- */ 
@@ -27,7 +25,6 @@ public class Hybride {
 	 */
 	public boolean isEmpty(){ return hd == null; }
 	
-	public int getNbMot(){ return nbMots; }
 	public HNode getHd(){ return hd; }
 	public void setHd(HNode n){ hd = n; }
 
@@ -75,11 +72,9 @@ public class Hybride {
 		Tools.checkWord("Hybride.add", s);
 		
 		if(hd==null){
-//			hd=new HNode(null, s.charAt(0)+"", null, null, null);
-			hd=new HNode(false, s.charAt(0)+"", null, null, null); //TODO modif
+			hd=new HNode(false, s.charAt(0)+"", null, null, null);
 		}
-		hd.add(s,nbMots);
-		nbMots++;
+		hd.add(s);
 
 	}
 	
@@ -203,24 +198,4 @@ public class Hybride {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
