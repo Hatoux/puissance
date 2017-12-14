@@ -1,9 +1,11 @@
 package patricia.test;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import exceptions.BadArgumentException;
+import hybride.HNode;
+import hybride.Hybride;
+import junit.framework.TestCase;
 import patricia.NodeP;
 import patricia.PatriciaTrie;
 
@@ -212,6 +214,176 @@ public class PatriciaTest extends TestCase {
 			fail("PatriciaTest.testPrefixe -> " + e.getMessage());
 		}
 	}
+	
+	
+	@Test
+	public void testToHybride(){
+		HNode tmp = null;
+		Hybride h = trie.toHybride();
+		
+		tmp = h.getHd();
+		assertTrue(tmp.getPrefix().charAt(0) == 's');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() != null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getPrevious();
+		assertTrue(tmp.getPrefix().charAt(0) == 'b');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'o');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'n');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'n');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() != null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() != null);
+		
+		tmp = tmp.getPrevious();
+		assertTrue(tmp.getPrefix().charAt(0) == 'j');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'o');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'u');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'r');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() == null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = h.getHd().getPrevious().getSon().getSon().getSon().getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'e');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'n');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'u');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'i');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 't');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() == null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = h.getHd().getPrevious().getSon().getSon().getSon().getNext();
+		assertTrue(tmp.getPrefix().charAt(0) == 's');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'o');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+		
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'i');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'r');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() == null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = h.getHd().getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'a');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'l');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp =tmp.getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 'u');
+		assertTrue(!tmp.isWord());
+		assertTrue(tmp.getPrevious() != null);
+		assertTrue(tmp.getSon() != null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = tmp.getPrevious();
+		assertTrue(tmp.getPrefix().charAt(0) == 'e');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() == null);
+		assertTrue(tmp.getNext() == null);
+
+		tmp = h.getHd().getSon().getSon().getSon().getSon();
+		assertTrue(tmp.getPrefix().charAt(0) == 't');
+		assertTrue(tmp.isWord());
+		assertTrue(tmp.getPrevious() == null);
+		assertTrue(tmp.getSon() == null);
+		assertTrue(tmp.getNext() == null);
+		
+	}
+	
 	/* TODO: test de autres methodes */
 	
 	/* TODO: test des primitives */
