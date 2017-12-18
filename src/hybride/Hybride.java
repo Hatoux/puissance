@@ -72,7 +72,7 @@ public class Hybride {
 		Tools.checkWord("Hybride.add", s);
 		
 		if(hd==null){
-			hd=new HNode(false, s.charAt(0)+"", null, null, null);
+			hd=new HNode(false, s.charAt(0)+"");
 		}
 		hd.add(s);
 
@@ -106,31 +106,6 @@ public class Hybride {
 		}
 		return 0;
 	}
-	
-//	public PatriciaTrie toPatriciaTrie() {
-//		PatriciaTrie n = new PatriciaTrie();
-//		if(hd!=null) {
-//			n.initFils();
-//			NodeP[] tabFils=n.getTabFils();
-//			tabFils[hd.getPrefix().charAt(0)]=hd.parcoursProfondeur(new StringBuilder(""));
-//			n.incNbFils();
-//			HNode previous=hd.getPrevious();
-//			HNode next=hd.getNext();
-//			while(next!=null || previous!=null) {
-//				if(next!=null) {
-//					tabFils[next.getPrefix().charAt(0)]=next.parcoursProfondeur(new StringBuilder(""));
-//					next=next.getNext();
-//					n.incNbFils();;
-//				}
-//				if(previous!=null) {
-//					tabFils[previous.getPrefix().charAt(0)]=previous.parcoursProfondeur(new StringBuilder(""));
-//					previous=previous.getPrevious();
-//					n.incNbFils();
-//				}
-//			}
-//		}
-//		return n;
-//	}
 	
 	public PatriciaTrie toPatriciaTrie() {
 		PatriciaTrie p = new PatriciaTrie();

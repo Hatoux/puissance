@@ -8,6 +8,9 @@
 
 package patricia;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import exceptions.BadArgumentException;
@@ -155,32 +158,6 @@ public class PatriciaTrie {
 
 
 
-	/* ---------- a ajouter ---------- */
-
-	public void deleteWordOld(String w) throws BadArgumentException{
-		/* verifier que le mot est correcte */
-		Tools.checkWord("PatriciaTrie.recherche", w);
-
-		/* ajout d'EPSILON a la fin du mot */
-		String word = w.concat(EPSILON);
-		boolean b=false;
-		if(tabFils[ word.charAt(0) ] != null)
-			b=tabFils[ word.charAt(0) ].deleteWord(word);
-		if(b) {
-			tabFils[ word.charAt(0) ] = null; //TODO Pourquoi tu fais ca?
-			nbFils--;
-		}
-	}
-
-	public void deleteWord(String w) throws BadArgumentException{
-		/* verifier que le mot est correcte */
-		Tools.checkWord("PatriciaTrie.recherche", w);
-
-		/* ajout d'EPSILON a la fin du mot */
-		String word = w.concat(EPSILON);
-		if(tabFils[ word.charAt(0) ] != null)
-			if(tabFils[ word.charAt(0) ].deleteWord(word)) nbFils--;
-	}
 
 
 	public String toString() {
@@ -315,6 +292,57 @@ public class PatriciaTrie {
 	}
 
 
+
+	public void deleteWord(String w) throws BadArgumentException{
+		/* verifier que le mot est correcte */
+		Tools.checkWord("PatriciaTrie.deleteWord", w);
+
+		/* ajout d'EPSILON a la fin du mot */
+		String word = w.concat(EPSILON);
+		if(tabFils[ word.charAt(0) ] != null) {
+			if(tabFils[ word.charAt(0)].getPrefix().compareTo(word)==0) {
+				tabFils[ word.charAt(0)]=null;
+				nbFils--;
+			}
+			else
+				tabFils[ word.charAt(0)].deleteWord(word);
+		}
+	}
+	
+
+	public void writeFile(String fs){
+		BufferedWriter bw=null;
+		FileWriter fw=null;
+		try {		
+			fw = new FileWriter(fs);
+			bw = new BufferedWriter(fw);
+			bw.write("graph G {");
+			bw.newLine();
+			bw.write("Racine;");
+			bw.newLine();
+			if(tabFils!=null)
+			for(int i=0;i<TAILLE_ALPHABET;i++)
+				if(tabFils[i]!=null) {
+					bw.write("Racine -- \""+tabFils[i].getId()+" "+tabFils[i].getPrefix()+"\";");
+					bw.newLine();
+					tabFils[i].writeFile(bw);
+				}
+			bw.write("}");
+		} catch (Exception ex){
+			ex.printStackTrace();
+		}
+		finally {
+			try {
+				if(bw!=null)
+					bw.close();
+				if(fw!=null)
+					fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
 

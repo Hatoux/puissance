@@ -1,5 +1,7 @@
 package patricia;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import exceptions.WrongAccessException;
@@ -12,28 +14,36 @@ public class NodeP {
 	private String prefix;
 	private NodeP[] tabFils;
 	private int nbFils;
-
+	private int id;
+	private static int cpt=0;
+	
 	public NodeP(String prefix){
 		this.prefix = prefix;
 		tabFils = null;
 		nbFils = 0;
+		id=cpt++;
 	}
 
 	public NodeP(){
 		this.prefix =null;
 		tabFils = null;
 		nbFils = 0;
+		id=cpt++;
 	}
 
 	public NodeP(String prefix,NodeP[] t){
 		this.prefix = prefix;
 		tabFils = t;
 		nbFils = 0;
+		id=cpt++;
 	}
 
 
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ---- primitives ---- -------------------- */ 
+	
+	public int getId(){ return id; }
+	
 	public String getPrefix(){ return prefix; }
 
 	public void setPrefix(String newPrefix){ prefix = newPrefix; }
@@ -190,113 +200,35 @@ public class NodeP {
 	}
 
 
-	public boolean deleteWordOld(String w){
-		if(prefix.compareTo(w)==0) {
-			return true;
-		}
 
-		if(prefix.length()>w.length()) {
-			return false;
-		}
-
+	
+	public void deleteWord(String w){
 		int i;
 		int min = w.length()<prefix.length()? w.length() : prefix.length();
-		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} // TODO ah mon gars t'es puissant la	
-		String s = w.substring(i);
-		if(tabFils[s.charAt(0)]!=null) {//inutile normalement
-			boolean b=tabFils[s.charAt(0)].deleteWord(s);
-			if(b) {
-				if(nbFils==2) {
-					for(i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
-						if(tabFils[i]!=null && i!=s.charAt(0))
-							break;
-					prefix+=tabFils[i].prefix;
-					tabFils=tabFils[i].tabFils;
-					nbFils--;
-					return false;
+		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {}
+		String s1 = w.substring(0,i);
+		if(s1.compareTo(prefix)==0) {
+			String s2 = w.substring(i);
+			if(tabFils[s2.charAt(0)]!=null) {
+				if(tabFils[s2.charAt(0)].prefix.compareTo(s2)==0) {
+					if(nbFils==2) {
+						for(i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
+							if(tabFils[i]!=null && i!=s2.charAt(0))
+								break;
+						prefix+=tabFils[i].prefix;
+						nbFils=tabFils[i].nbFils;
+						tabFils=tabFils[i].tabFils;
+					}
+					else {
+						tabFils[s2.charAt(0)]=null;
+						nbFils--;
+					}
 				}
 				else {
-					tabFils[s.charAt(0)]=null;
-					nbFils--;
-					return false;
+					tabFils[s2.charAt(0)].deleteWord(s2);
 				}
 			}
-			else {
-				return false;
-			}
-
-
 		}
-		else
-			return false;
-
-	}
-
-	public boolean deleteWord(String w){
-		int tailleWord = w.length();
-		int taillePrefix = prefix.length();
-		boolean canDeleteNode = false;
-		
-		// parcourt du trie pour rechercher le mot a supprimer
-		if(tailleWord == taillePrefix) {
-			if(prefix.compareTo(w) == 0){ 
-				// Dans ce cas le NodeP courant est une feuille car prefix finit par EPSILON
-				return true;
-			}else{
-				// Dans ce cas w est abscent => pas de suppression
-				return false;
-			}
-		}else if(tailleWord > taillePrefix){
-			for(int i=0; i<taillePrefix; i++){
-				if(w.charAt(i) != prefix.charAt(i))
-					// Dans ce cas w est abscent => pas de suppression
-					return false;
-			}
-			if(tabFils != null && tabFils[w.charAt(taillePrefix)] != null){
-				canDeleteNode = tabFils[w.charAt(taillePrefix)].deleteWord(w.substring(taillePrefix));
-			}else return false;
-		}else return false;			
-		
-		// a ce stade, tailleWord > taillePrefix
-		if(canDeleteNode){
-			tabFils[w.charAt(taillePrefix)] = null;
-			nbFils--;
-			if(nbFils == 1){
-				
-			}
-		}
-
-		int i;
-		int min = w.length()<prefix.length()? w.length() : prefix.length();
-		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} 
-		String s = w.substring(i);
-		if(tabFils[s.charAt(0)] != null) {//inutile normalement
-			boolean b=tabFils[s.charAt(0)].deleteWord(s);
-			if(b) {
-				if(nbFils==2) {
-					for(i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
-						if(tabFils[i]!=null && i!=s.charAt(0))
-							break;
-					prefix+=tabFils[i].prefix;
-					tabFils=tabFils[i].tabFils;
-					nbFils--;
-					return false;
-				}
-				else {
-					tabFils[s.charAt(0)]=null;
-					nbFils--;
-					return false;
-				}
-			}
-			else {
-				return false;
-			}
-
-
-		}
-		else
-			return false;
-
 	}
 
 
@@ -572,6 +504,16 @@ public class NodeP {
 		}
 	}
 
+	public void writeFile(BufferedWriter writer) throws IOException {
+		
+		if(tabFils!=null)
+		for(int i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
+			if(tabFils[i]!=null) {
+				writer.write("\""+id+" "+prefix+"\" -- \""+tabFils[i].id+" "+tabFils[i].prefix+"\";");
+				writer.newLine();
+				tabFils[i].writeFile(writer);
+			}
+}
 }
 
 
