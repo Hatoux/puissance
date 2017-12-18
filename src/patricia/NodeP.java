@@ -190,7 +190,7 @@ public class NodeP {
 	}
 
 
-	public boolean deleteWord(String w){
+	public boolean deleteWordOld(String w){
 		if(prefix.compareTo(w)==0) {
 			return true;
 		}
@@ -201,9 +201,76 @@ public class NodeP {
 
 		int i;
 		int min = w.length()<prefix.length()? w.length() : prefix.length();
-		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} 	
+		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} // TODO ah mon gars t'es puissant la	
 		String s = w.substring(i);
 		if(tabFils[s.charAt(0)]!=null) {//inutile normalement
+			boolean b=tabFils[s.charAt(0)].deleteWord(s);
+			if(b) {
+				if(nbFils==2) {
+					for(i=0;i<PatriciaTrie.TAILLE_ALPHABET;i++)
+						if(tabFils[i]!=null && i!=s.charAt(0))
+							break;
+					prefix+=tabFils[i].prefix;
+					tabFils=tabFils[i].tabFils;
+					nbFils--;
+					return false;
+				}
+				else {
+					tabFils[s.charAt(0)]=null;
+					nbFils--;
+					return false;
+				}
+			}
+			else {
+				return false;
+			}
+
+
+		}
+		else
+			return false;
+
+	}
+
+	public boolean deleteWord(String w){
+		int tailleWord = w.length();
+		int taillePrefix = prefix.length();
+		boolean canDeleteNode = false;
+		
+		// parcourt du trie pour rechercher le mot a supprimer
+		if(tailleWord == taillePrefix) {
+			if(prefix.compareTo(w) == 0){ 
+				// Dans ce cas le NodeP courant est une feuille car prefix finit par EPSILON
+				return true;
+			}else{
+				// Dans ce cas w est abscent => pas de suppression
+				return false;
+			}
+		}else if(tailleWord > taillePrefix){
+			for(int i=0; i<taillePrefix; i++){
+				if(w.charAt(i) != prefix.charAt(i))
+					// Dans ce cas w est abscent => pas de suppression
+					return false;
+			}
+			if(tabFils != null && tabFils[w.charAt(taillePrefix)] != null){
+				canDeleteNode = tabFils[w.charAt(taillePrefix)].deleteWord(w.substring(taillePrefix));
+			}else return false;
+		}else return false;			
+		
+		// a ce stade, tailleWord > taillePrefix
+		if(canDeleteNode){
+			tabFils[w.charAt(taillePrefix)] = null;
+			nbFils--;
+			if(nbFils == 1){
+				
+			}
+		}
+
+		int i;
+		int min = w.length()<prefix.length()? w.length() : prefix.length();
+		for(i=0;i<min && prefix.charAt(i)==w.charAt(i);i++) {} 
+		String s = w.substring(i);
+		if(tabFils[s.charAt(0)] != null) {//inutile normalement
 			boolean b=tabFils[s.charAt(0)].deleteWord(s);
 			if(b) {
 				if(nbFils==2) {

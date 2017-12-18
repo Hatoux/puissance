@@ -10,8 +10,6 @@ package patricia;
 
 import java.util.ArrayList;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import exceptions.BadArgumentException;
 import exceptions.WrongAccessException;
 import hybride.Hybride;
@@ -159,7 +157,7 @@ public class PatriciaTrie {
 
 	/* ---------- a ajouter ---------- */
 
-	public void deleteWord(String w) throws BadArgumentException{
+	public void deleteWordOld(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.recherche", w);
 
@@ -169,10 +167,21 @@ public class PatriciaTrie {
 		if(tabFils[ word.charAt(0) ] != null)
 			b=tabFils[ word.charAt(0) ].deleteWord(word);
 		if(b) {
-			tabFils[ word.charAt(0) ]=null;
+			tabFils[ word.charAt(0) ] = null; //TODO Pourquoi tu fais ca?
 			nbFils--;
 		}
 	}
+
+	public void deleteWord(String w) throws BadArgumentException{
+		/* verifier que le mot est correcte */
+		Tools.checkWord("PatriciaTrie.recherche", w);
+
+		/* ajout d'EPSILON a la fin du mot */
+		String word = w.concat(EPSILON);
+		if(tabFils[ word.charAt(0) ] != null)
+			if(tabFils[ word.charAt(0) ].deleteWord(word)) nbFils--;
+	}
+
 
 	public String toString() {
 		ArrayList<String> lr=listeMot();
@@ -273,7 +282,7 @@ public class PatriciaTrie {
 
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ---- toHybride ----- -------------------- */
-	
+
 	public Hybride toHybride(){
 		Hybride res = new Hybride();
 		if(tabFils != null) 
@@ -288,7 +297,7 @@ public class PatriciaTrie {
 		return res;
 	}
 
-	
+
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- ------ autres ------ -------------------- */
 
