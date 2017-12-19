@@ -107,6 +107,14 @@ public class Hybride {
 		return 0;
 	}
 	
+	
+	public int hauteur(){
+		int res = 0;
+		if(hd != null) res = hd.hauteur();
+		return res;
+	}
+	
+	
 	public PatriciaTrie toPatriciaTrie() {
 		PatriciaTrie p = new PatriciaTrie();
 		if(hd!=null) {

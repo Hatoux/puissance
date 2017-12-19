@@ -551,6 +551,11 @@ public class HybrideTest extends TestCase {
 	}
 */
 
+	@Test
+	public void testHauteur(){
+		assertTrue("HybrideTest.testHauteur --> echec test", trie.hauteur() == 11);
+	}
+	
 
 	@Test
 	public void testSuppression(){

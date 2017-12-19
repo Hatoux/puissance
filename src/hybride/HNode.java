@@ -22,9 +22,9 @@ public class HNode{
 		son=s;
 		prefix=pr;
 		word = w; 
-		
+
 	}
-	
+
 	public HNode(boolean w, String prefix){
 		this.prefix = prefix;
 		previous = null;
@@ -83,7 +83,7 @@ public class HNode{
 		return false;
 	}
 
-
+	
 	public boolean rechercher(String s) {
 
 		if(prefix.codePointAt(0)>s.codePointAt(0)) {
@@ -107,9 +107,7 @@ public class HNode{
 		return false;
 	}
 
-
-
-
+	
 	public int comptageMot() {
 		int compteur = 0;
 
@@ -126,8 +124,6 @@ public class HNode{
 
 		return compteur;
 	}
-
-
 
 
 	public int prefixe(String s) {
@@ -156,6 +152,18 @@ public class HNode{
 	}
 
 
+	public int hauteur(){
+		int hp = 0, hs = 0, hn = 0;
+		
+		if(previous != null)  hp = previous.hauteur();
+		if(son != null) hs = son.hauteur();
+		if(next != null) hn = next.hauteur();
+		
+		return 1 + Math.max(hp, Math.max(hs, hn));
+	}
+	
+	
+	
 	public void conversion(NodeP p,StringBuilder s){
 
 		if(previous!=null) {
@@ -166,7 +174,7 @@ public class HNode{
 		}
 
 		if(!word){
-			
+
 			if(son.previous==null && son.next==null) {
 				s.append(prefix);
 				son.conversion(p, s);
@@ -210,7 +218,6 @@ public class HNode{
 	}
 
 
-
 	public void listeMot(ArrayList<String> res, String prefix){
 
 		/* recuperation des mots present dans le fils gauche */
@@ -218,7 +225,7 @@ public class HNode{
 
 		/* ajout du mot courant si c'est un mot */
 		if(word) res.add(prefix + this.prefix);
-		
+
 
 		/* recuperation des mots present dans le fils du milieu */
 		if(son != null)	son.listeMot(res, prefix + this.prefix);
@@ -227,6 +234,7 @@ public class HNode{
 		if(next != null) next.listeMot(res, prefix);
 	}
 
+	
 	/**
 	 * methode appele par la methode comptageNil() de la classe Hybride.
 	 * @return int: le nombre de pointeur nul dans l'Hybride a partir de ce node
@@ -243,8 +251,6 @@ public class HNode{
 	}
 
 
-
-
 	public void addSubtree(HNode n){
 		if(n.getPrefix().charAt(0) > prefix.charAt(0)){
 			if(next == null) next = n;
@@ -259,20 +265,19 @@ public class HNode{
 	}
 
 
-
 	// WARNING! cette fonction peut potentiellemnt desequilibrer l'arbre
 	public boolean suppression(HNode father, String word){
+
 		if(word.codePointAt(0) == prefix.codePointAt(0)){
 			if(word.length() > 1){ 
 				if(son != null && son.suppression(this, word.substring(1)) ){ /* implique son = null */
 					if(father.getSon() != null && father.getSon().equals(this)){
-						if(!this.word){ /* Dans ce cas, le Node courant doit etre supprimer */
+						if(!isWord()){ /* Dans ce cas, le Node courant doit etre supprimer */
 							if(previous == null && next == null){ 
 								/* Seul cas ou on renvoie true (dans if(word.length() > 1) */
 								father.setSon(null);
 								return true;
-							}
-							if(previous == null && next != null) father.setSon(next);
+							}else if(previous == null && next != null) father.setSon(next);
 							else if(previous != null && next == null) father.setSon(previous);
 							else{
 								HNode tmp = next;
@@ -306,17 +311,16 @@ public class HNode{
 			}else{ /* word.length() == 1 */
 				if(this.word){
 					this.word = false;
-				
+
 					if(son == null){
 						if(father.getSon() != null && father.getSon().equals(this)){
 							if(previous == null && next == null){ 
 								/* Seul cas ou on renvoie true (dans if(word.length() == 1)) */
 								father.setSon(null);
 								return true;
-							}
-							if(previous == null && next != null)
+							}else if(previous == null && next != null)
 								father.setSon(next);
-							else if(previous != null && next != null)
+							else if(previous != null && next == null)
 								father.setSon(previous);
 							else{
 								HNode tmp = next;
@@ -330,7 +334,7 @@ public class HNode{
 								father.setPrevious(null);
 							else if(previous == null && next != null)
 								father.setPrevious(next);
-							else if(previous != null && next != null)
+							else if(previous != null && next == null)
 								father.setPrevious(previous);
 							else{
 								HNode tmp = next;
@@ -344,7 +348,7 @@ public class HNode{
 								father.setNext(null);
 							else if(previous == null && next != null)
 								father.setNext(next);
-							else if(previous != null && next != null)
+							else if(previous != null && next == null)
 								father.setNext(previous);
 							else{
 								HNode tmp = next;
@@ -363,55 +367,20 @@ public class HNode{
 		return false;
 	}
 
-
-
 	/* -------------------- -------------------- -------------------- */ 
-	/* --------------------  ----- autres -----  -------------------- */
+	/* -------------------- ------ fusion ------  -------------------- */
 
-
-	public void showHNode(int h){
-		System.out.println("");
-		boolean ok = false;
-
-		if(previous != null){
-			for(int i=0; i<h; i++)System.out.print("   ");
-			System.out.print(prefix + " ");
-			System.out.print("(p)->");
-			previous.showHNode(h+1);
-			ok = true;
-		}
-		if(son != null){
-			for(int i=0; i<h; i++)System.out.print("   ");
-			System.out.print(prefix + " ");
-			System.out.print("(s)->");
-			son.showHNode(h+1);
-			ok = true;
-		}
-		if(next != null){
-			for(int i=0; i<h; i++)System.out.print("   ");
-			System.out.print(prefix + " ");
-			System.out.print("(n)->");
-			next.showHNode(h+1);
-			ok = true;
-		}
-		if(!ok){
-			for(int i=0; i<h; i++)System.out.print("   ");
-			System.out.print(prefix + " \n");
-		}
-	}
-
-	// TODO juste est ce que c estbon le prefix + ""
+	
 	public HNode clone(){
 		HNode res = new HNode(word, prefix + "");
-		
+
 		if(previous != null) res.setPrevious(previous.clone());
 		if(son != null) res.setSon(son.clone());
 		if(next != null) res.setNext(next.clone());
 		return res;
 	}
 
-	
-	
+
 	/**
 	 * methode fusionnant 2 sous-trie. Attention, modifie les 2 sous-trieHybride qui
 	 * sont concerne.
@@ -435,7 +404,7 @@ public class HNode{
 			pivot.fusion(fn, pivot);
 		}
 
-		
+
 		if(n2.getPrefix().codePointAt(0) == prefix.codePointAt(0)){
 			/* gestion attribut word */
 			word = word || n2.isWord();
@@ -454,9 +423,8 @@ public class HNode{
 			else next.fusion(n2, pivot);
 		}
 	}
-	
-	
-	
+
+
 	/**
 	 * FINALEMENT EST INUTLE POUR LA FUSION
 	 * methode qui aligne le trie en fonction du pivot:
@@ -494,6 +462,47 @@ public class HNode{
 		}
 		return this;
 	}
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- --- equilibrage ---- -------------------- */
+
+	// TODO
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* --------------------  ----- autres -----  -------------------- */
+
+
+	public void showHNode(int h){
+		System.out.println("");
+		boolean ok = false;
+
+		if(previous != null){
+			for(int i=0; i<h; i++)System.out.print("   ");
+			System.out.print(prefix + " ");
+			System.out.print("(p)->");
+			previous.showHNode(h+1);
+			ok = true;
+		}
+		if(son != null){
+			for(int i=0; i<h; i++)System.out.print("   ");
+			System.out.print(prefix + " ");
+			System.out.print("(s)->");
+			son.showHNode(h+1);
+			ok = true;
+		}
+		if(next != null){
+			for(int i=0; i<h; i++)System.out.print("   ");
+			System.out.print(prefix + " ");
+			System.out.print("(n)->");
+			next.showHNode(h+1);
+			ok = true;
+		}
+		if(!ok){
+			for(int i=0; i<h; i++)System.out.print("   ");
+			System.out.print(prefix + " \n");
+		}
+	}
+
+
 
 }
 

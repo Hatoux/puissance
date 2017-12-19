@@ -43,6 +43,26 @@ public class ComparateurTemps {
 		return new Resultat(timeP, timeH);
 	}
 	
+	public Resultat addOneWord(String w) throws WrongAccessException, BadArgumentException{
+
+		long timeP, timeH;
+		
+		if(p == null || h == null)
+			throw new WrongAccessException("les tries sont vides!");
+
+		// ajout de tous les mots de la liste dans le PatriciaTrie
+		timeP = System.currentTimeMillis(); 
+		p.addWord(w);
+		timeP = System.currentTimeMillis() - timeP;
+
+		// ajout de tous les mots de la liste dans le HybrideTrie
+		timeH = System.currentTimeMillis(); 
+		h.add(w);
+		timeH = System.currentTimeMillis() - timeH;
+
+		return new Resultat(timeP, timeH);
+	}
+
 	
 	public Resultat rechercheFicShakespeare(String ficName) throws WrongAccessException, BadArgumentException{
 		long timeP, timeH;
@@ -66,6 +86,7 @@ public class ComparateurTemps {
 		return new Resultat(timeP, timeH);
 	}
 	
+	
 	public Resultat suppressionFicShakespeare(String ficName) throws WrongAccessException, BadArgumentException{
 		long timeP, timeH;
 		
@@ -87,6 +108,9 @@ public class ComparateurTemps {
 
 		return new Resultat(timeP, timeH);
 	}
+	
+	
+	
 
 	
 

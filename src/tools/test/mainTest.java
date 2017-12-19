@@ -31,7 +31,7 @@ public class mainTest {
 	}
 
 	/* verifie que nos structures recupere bien le bon nombre de mots */
-	public static void main(String [] args){
+	public static void main2(String [] args){
 		try {
 			/* pour recuperer le nombre de mots reel */
 			System.out.println("recuperation des mots dans une liste");
@@ -60,7 +60,7 @@ public class mainTest {
 		}
 	}
 
-	public static void main2(String [] args){
+	public static void main(String [] args){
 		try {
 			ComparateurTemps ct = new ComparateurTemps();
 			
