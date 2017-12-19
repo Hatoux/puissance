@@ -1,0 +1,4 @@
+#!/bin/bash
+
+dot -Tsvg -o $1.svg $1.dot
+firefox $1
