@@ -46,9 +46,6 @@ public class PatriciaTrie {
 	public void incNbFils() { nbFils++;	}
 	public void setNbFils(int nbFils) {	this.nbFils = nbFils; }
 
-	//	public NodeP filsAIndex(int i) {
-	//	return tabFils[i];
-	//}
 
 
 
@@ -81,6 +78,23 @@ public class PatriciaTrie {
 	}
 
 
+	public void deleteWord(String w) throws BadArgumentException{
+		/* verifier que le mot est correcte */
+		Tools.checkWord("PatriciaTrie.deleteWord", w);
+
+		/* ajout d'EPSILON a la fin du mot */
+		String word = w.concat(EPSILON);
+		if(tabFils[ word.charAt(0) ] != null) {
+			if(tabFils[ word.charAt(0)].getPrefix().compareTo(word)==0) {
+				tabFils[ word.charAt(0)]=null;
+				nbFils--;
+			}
+			else
+				tabFils[ word.charAt(0)].deleteWord(word);
+		}
+	}
+	
+	
 	/**
 	 * determine si le mot est present dans le Patricia trie
 	 * @param w:String -> mot a rechercher
@@ -150,6 +164,21 @@ public class PatriciaTrie {
 		}
 		return 0;
 	}
+	
+	// TODO ya listeMot et listeMot2. 
+	
+	public ArrayList<String> listeMot(){
+		ArrayList<String> lr=new ArrayList<>();
+		if(tabFils!=null) {
+			for(int i=0;i<tabFils.length;i++) {
+				if(tabFils[i]!=null) {
+					tabFils[i].toString(lr, "");
+				}
+			}
+		}
+		return lr;
+	}
+
 
 
 	/* -------------------- -------------------- -------------------- */ 
@@ -168,18 +197,6 @@ public class PatriciaTrie {
 		return r;
 	}
 
-	public ArrayList<String> listeMot(){
-		ArrayList<String> lr=new ArrayList<>();
-		if(tabFils!=null) {
-			for(int i=0;i<tabFils.length;i++) {
-				if(tabFils[i]!=null) {
-					//				System.out.println(tabFils[i]);
-					tabFils[i].toString(lr, "");
-				}
-			}
-		}
-		return lr;
-	}
 
 	public ArrayList<String> listeMot2(){
 		ArrayList<String> lr=new ArrayList<>();
@@ -202,7 +219,8 @@ public class PatriciaTrie {
 					return r;
 	}
 
-	public double profondeurMoyenne() {
+	// TODO chelou ca et bug si j = 0
+	public double profondeurMoyenneOld() {
 		double r = 0;
 		double j=0;
 		if(tabFils!=null) 
@@ -211,9 +229,17 @@ public class PatriciaTrie {
 					r+=tabFils[i].hauteur();
 					j++;
 				}
-
-
 		return r/j;
+	}
+	
+	public double profondeurMoyenne(){
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		int somme_hauteur = 0;
+		if(tabFils == null) return 0;
+		for(int i=0;i<tabFils.length;i++)
+			if(tabFils[i]!=null) l.addAll(tabFils[i].hauteurMoy(1));
+		if(l.size() == 0) return 0;
+		return somme_hauteur / l.size();
 	}
 
 	public PatriciaTrie clone() {
@@ -230,7 +256,7 @@ public class PatriciaTrie {
 	}
 
 	public PatriciaTrie fusion(PatriciaTrie p2){
-		PatriciaTrie p1 =clone();
+		PatriciaTrie p1 = clone();
 		p2=p2.clone();
 		if(p1.tabFils!=null) {
 			if(p2.tabFils!=null) {
@@ -293,21 +319,7 @@ public class PatriciaTrie {
 
 
 
-	public void deleteWord(String w) throws BadArgumentException{
-		/* verifier que le mot est correcte */
-		Tools.checkWord("PatriciaTrie.deleteWord", w);
 
-		/* ajout d'EPSILON a la fin du mot */
-		String word = w.concat(EPSILON);
-		if(tabFils[ word.charAt(0) ] != null) {
-			if(tabFils[ word.charAt(0)].getPrefix().compareTo(word)==0) {
-				tabFils[ word.charAt(0)]=null;
-				nbFils--;
-			}
-			else
-				tabFils[ word.charAt(0)].deleteWord(word);
-		}
-	}
 	
 
 	public void writeFile(String fs){

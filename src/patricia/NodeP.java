@@ -56,17 +56,14 @@ public class NodeP {
 
 	public int getNbFils(){ return nbFils; }
 
-	//TODO voir si cette fonction est necessaire
 	public void setNbFils(int n){ nbFils = n; }
 
 	public void incNbFils() { nbFils++; }
 
-	// TODO necessaire?
 	public void incNbFils(int i) { nbFils+=i; }
 
 	public boolean isTabFilsNotNull(){ return tabFils != null; }
 
-	//TODO voir si cette fonction est necessaire
 	public boolean isUnFilsNotNull(String key) throws WrongAccessException{
 		if(isTabFilsNotNull()){
 			NodeP[] sons = getTabFils();
@@ -284,6 +281,22 @@ public class NodeP {
 					return r;
 	}
 
+	public ArrayList<Integer> hauteurMoy(int hauteur_courante){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if(isTabFilsNotNull())
+			for(int i=0; i<tabFils.length; i++){
+				if(tabFils[i] != null) res.addAll(tabFils[i].hauteurMoy(hauteur_courante + 1));
+			}
+		else //NodeP courant est une feuille
+			res.add(new Integer(hauteur_courante));
+		return res;
+	}
+
+
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ----- fusion ------- -------------------- */
+
 	private void fusionFils(NodeP n) {
 		if(tabFils!=null) {
 			if(n.tabFils!=null) {
@@ -340,6 +353,7 @@ public class NodeP {
 		n.nbFils=tmpNbFils;
 		n.tabFils=tmpFils;
 	}
+
 	public void fusion(NodeP n){
 
 		int i,min;
@@ -380,6 +394,9 @@ public class NodeP {
 		}
 	}
 
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ---- toHybride ----- -------------------- */
+
 
 	public NodeP clone() {
 		NodeP result=new NodeP(prefix);
@@ -395,10 +412,6 @@ public class NodeP {
 		}
 		return result;
 	}
-
-
-	/* -------------------- -------------------- -------------------- */ 
-	/* -------------------- ---- toHybride ----- -------------------- */
 
 
 
