@@ -78,15 +78,19 @@ public class PatriciaTrie {
 	}
 
 
+	
 	public void deleteWord(String w) throws BadArgumentException{
 		/* verifier que le mot est correcte */
 		Tools.checkWord("PatriciaTrie.deleteWord", w);
 
 		/* ajout d'EPSILON a la fin du mot */
 		String word = w.concat(EPSILON);
-		if(tabFils[ word.charAt(0) ] != null) {
+		if(tabFils != null && tabFils[ word.charAt(0) ] != null) {
 			if(tabFils[ word.charAt(0)].getPrefix().compareTo(word)==0) {
-				tabFils[ word.charAt(0)]=null;
+				if(nbFils==1)
+					tabFils=null;
+				else
+					tabFils[ word.charAt(0)]=null;
 				nbFils--;
 			}
 			else
