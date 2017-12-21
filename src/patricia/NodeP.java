@@ -235,7 +235,7 @@ public class NodeP {
 
 
 
-	public void toString(ArrayList<String>ls, String s) {
+	public void listeMot(ArrayList<String>ls, String s) {
 		if(prefix.charAt(prefix.length()-1)==PatriciaTrie.EPSILON.charAt(0)) {
 			if(prefix.length()>1)
 				s=s+(prefix.substring(0,prefix.length()-1));
@@ -246,24 +246,7 @@ public class NodeP {
 			if(tabFils!=null) {
 				for(int i=0;i<tabFils.length;i++){
 					if(tabFils[i]!=null)
-						tabFils[i].toString(ls, s);
-				}
-			}
-		}
-	}
-
-	public void toString2(ArrayList<String>ls, StringBuilder s) {
-		if(prefix.charAt(prefix.length()-1)==PatriciaTrie.EPSILON.charAt(0)) {
-			if(prefix.length()>1)
-				s.append(prefix.substring(0,prefix.length()-1));
-			ls.add(s.toString());
-		}
-		else {
-			s.append(prefix);
-			if(tabFils!=null) {
-				for(int i=0;i<tabFils.length;i++){
-					if(tabFils[i]!=null)
-						tabFils[i].toString2(ls, new StringBuilder (s));
+						tabFils[i].listeMot(ls, s);
 				}
 			}
 		}

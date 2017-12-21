@@ -169,14 +169,13 @@ public class PatriciaTrie {
 		return 0;
 	}
 	
-	// TODO ya listeMot et listeMot2. 
 	
 	public ArrayList<String> listeMot(){
 		ArrayList<String> lr=new ArrayList<>();
 		if(tabFils!=null) {
 			for(int i=0;i<tabFils.length;i++) {
 				if(tabFils[i]!=null) {
-					tabFils[i].toString(lr, "");
+					tabFils[i].listeMot(lr, "");
 				}
 			}
 		}
@@ -202,18 +201,6 @@ public class PatriciaTrie {
 	}
 
 
-	public ArrayList<String> listeMot2(){
-		ArrayList<String> lr=new ArrayList<>();
-		if(tabFils!=null) {
-			for(int i=0;i<tabFils.length;i++) {
-				if(tabFils[i]!=null) {
-					tabFils[i].toString2(lr, new StringBuilder(""));
-				}
-			}
-		}
-		return lr;
-	}
-
 	public int hauteur() {
 		int r = 0;
 		if(tabFils!=null)
@@ -238,12 +225,13 @@ public class PatriciaTrie {
 	
 	public double profondeurMoyenne(){
 		ArrayList<Integer> l = new ArrayList<Integer>();
-		int somme_hauteur = 0;
+		int somme_hauteurs = 0;
 		if(tabFils == null) return 0;
 		for(int i=0;i<tabFils.length;i++)
 			if(tabFils[i]!=null) l.addAll(tabFils[i].hauteurMoy(1));
+		for(Integer i: l) somme_hauteurs += i.intValue();
 		if(l.size() == 0) return 0;
-		return somme_hauteur / l.size();
+		return somme_hauteurs / l.size();
 	}
 
 	public PatriciaTrie clone() {

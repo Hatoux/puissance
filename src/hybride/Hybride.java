@@ -42,8 +42,19 @@ public class Hybride {
 		/* verifier que le mot est correcte */
 		Tools.checkWord("Hybride.suppression", w);
 
-		if(!isEmpty()) 
-			if( hd.suppression(null, w) ) hd = null;
+		if(!isEmpty()){ 
+			if( hd.suppression(null, w) ){
+				if(hd.getPrevious() == null && hd.getNext() == null) hd = null;
+				else if(hd.getPrevious() == null && hd.getNext() != null)
+					hd = hd.getNext();
+				else if(hd.getPrevious() != null && hd.getNext() == null)
+					hd = hd.getPrevious();
+				else{
+					hd.getPrevious().addSubtree(hd.getNext());
+					hd = hd.getPrevious();
+				}
+			}
+		}
 	}
 
 	
@@ -114,6 +125,8 @@ public class Hybride {
 		return res;
 	}
 	
+	//TODO hauteurMoy
+	
 	
 	public PatriciaTrie toPatriciaTrie() {
 		PatriciaTrie p = new PatriciaTrie();
@@ -148,6 +161,9 @@ public class Hybride {
 		return p;
 	}
 
+	
+	/* -------------------- -------------------- -------------------- */ 
+	/* -------------------- ------ fusion ------ -------------------- */
 	
 	public Hybride cloneTrieH(){
 		Hybride res = new Hybride();

@@ -162,6 +162,25 @@ public class HNode{
 		return 1 + Math.max(hp, Math.max(hs, hn));
 	}
 	
+	public ArrayList<Integer> hauteurMoy(int hauteurCourante){
+		boolean isFeuille = true;
+		ArrayList<Integer> l = new ArrayList<>();
+		if(previous != null){
+			isFeuille = false;
+			l.addAll( previous.hauteurMoy(hauteurCourante + 1) );
+		}
+		if(son != null){
+			isFeuille = false;
+			l.addAll( son.hauteurMoy(hauteurCourante + 1) );
+		}
+		if(next != null){
+			isFeuille = false;
+			l.addAll( next.hauteurMoy(hauteurCourante + 1) );
+		}
+		if(isFeuille) l.add(hauteurCourante);
+		return l;
+	}
+	
 	
 	
 	public void conversion(NodeP p,StringBuilder s){
@@ -271,7 +290,9 @@ public class HNode{
 		if(word.codePointAt(0) == prefix.codePointAt(0)){
 			if(word.length() > 1){ 
 				if(son != null && son.suppression(this, word.substring(1)) ){ /* implique son = null */
-					if(father.getSon() != null && father.getSon().equals(this)){
+					if(father == null && !isWord()){
+						if(previous == null && next == null) return true;
+					}else if(father.getSon() != null && father.getSon().equals(this)){
 						if(!isWord()){ /* Dans ce cas, le Node courant doit etre supprimer */
 							if(previous == null && next == null){ 
 								/* Seul cas ou on renvoie true (dans if(word.length() > 1) */
@@ -313,7 +334,9 @@ public class HNode{
 					this.word = false;
 
 					if(son == null){
-						if(father.getSon() != null && father.getSon().equals(this)){
+						if(father == null){
+							if(previous == null && next == null) return true;
+						}else if(father.getSon() != null && father.getSon().equals(this)){
 							if(previous == null && next == null){ 
 								/* Seul cas ou on renvoie true (dans if(word.length() == 1)) */
 								father.setSon(null);
@@ -368,7 +391,7 @@ public class HNode{
 	}
 
 	/* -------------------- -------------------- -------------------- */ 
-	/* -------------------- ------ fusion ------  -------------------- */
+	/* -------------------- ------ fusion ------ -------------------- */
 
 	
 	public HNode clone(){
@@ -403,7 +426,6 @@ public class HNode{
 			n2.setNext(null);
 			pivot.fusion(fn, pivot);
 		}
-
 
 		if(n2.getPrefix().codePointAt(0) == prefix.codePointAt(0)){
 			/* gestion attribut word */
@@ -462,6 +484,7 @@ public class HNode{
 		}
 		return this;
 	}
+	
 	/* -------------------- -------------------- -------------------- */ 
 	/* -------------------- --- equilibrage ---- -------------------- */
 

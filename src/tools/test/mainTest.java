@@ -60,7 +60,7 @@ public class mainTest {
 		}
 	}
 
-	public static void main(String [] args){
+	public static void main5(String [] args){
 		try {
 			ComparateurTemps ct = new ComparateurTemps();
 			
@@ -96,4 +96,44 @@ public class mainTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void main(String [] args){
+		try {
+			/* pour recuperer le nombre de mots reel */
+			System.out.println("recuperation des mots dans une liste");
+			ArrayList<String> words = Tools.shakespeareWords();
+			
+			System.out.println("recuperation des mots de la liste dans un set");
+			Set<String> l1 = new HashSet<>();
+			for(String s : words) l1.add(s);
+			
+			System.out.println("recuperation des mots dans un PatriciaTrie");
+			PatriciaTrie abrP = new PatriciaTrie();
+			for(String s : words) abrP.addWord(s);
+
+			System.out.println("recuperation des mots dans un HybrideTrie");
+			Hybride abrH = new Hybride();
+			for(String s : words) abrH.add(s);
+			
+			System.out.println("il y a " + l1.size() + " mots dans le set1");
+			System.out.println("il y a " + abrP.comptageMot() + " mots dans le PatriciaTrie");
+			System.out.println("il y a " + abrH.comptageMot() + " mots dans le HybrideTrie");
+			
+			System.out.println("supression de tous les mots du patricia");
+			for(String s : words) abrP.deleteWord(s);
+			System.out.println("il y a " + abrP.comptageMot() + " mots dans le PatriciaTrie");
+			
+			System.out.println("supression de tous les mots du HybrideTrie");
+			for(String s : words) abrH.suppression(s);
+			System.out.println("il y a " + abrH.comptageMot() + " mots dans le HybrideTrie");
+			
+		} catch (WrongAccessException e) {
+			e.printStackTrace();
+		} catch (BadArgumentException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

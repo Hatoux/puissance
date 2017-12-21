@@ -14,9 +14,9 @@ public class Presentation {
 		Scanner sc = new Scanner(System.in);
 		
 		//TODO Nom Prenom
-		System.out.println("Bienvenue dans le projet d'ALGAV de HEBIRI Hatem et Josephe");
+		System.out.println("Bienvenue dans le projet d'ALGAV de HEBIRI Hatem et RASCAR Joseph");
 		System.out.println("");
-		System.out.println("Appuyez sur une touche pour continuer");
+		System.out.println("Appuyez sur la touche entree pour continuer");
 		buff = sc.nextLine();
 		buff = "";
 		
