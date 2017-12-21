@@ -17,7 +17,7 @@ public class mainTest {
 	
 	/* test permettant de verifier que les mots du fichiers sont extrait quel que soit la facon
 	 * dont le fichier est concue */
-	public static void main1(String [] args){
+	public static void mainVerifieio(String [] args){
 		ArrayList<String> words1 = Tools.fic_to_listWord("./fichiers_test/exemple_de_base.txt");
 		Set<String> l1 = new HashSet<>();
 		for(String s : words1) l1.add(s);
@@ -60,7 +60,10 @@ public class mainTest {
 		}
 	}
 
-	public static void main5(String [] args){
+	/*
+	 * test recheche, suppression  et donne les temps pour tout shakespeare pour hybryde et pat
+	 */
+	public static void mainautre(String [] args){
 		try {
 			ComparateurTemps ct = new ComparateurTemps();
 			
@@ -97,8 +100,10 @@ public class mainTest {
 		}
 	}
 	
-	
-	public static void main(String [] args){
+	/*
+	 * ajoute tous les mots de shakes puis supprime tous les mots 
+	 */
+	public static void mainTestSupression(String [] args){
 		try {
 			/* pour recuperer le nombre de mots reel */
 			System.out.println("recuperation des mots dans une liste");
@@ -135,5 +140,68 @@ public class mainTest {
 		}
 
 	}
+	
+	/*
+	 * test si la fusion est ok
+	 */
+	public static void main(String [] args){
+		try {
+			Hybride h1 = new Hybride();
+			PatriciaTrie p1 = new PatriciaTrie(); 
+			
+			Hybride h2 = new Hybride();
+			PatriciaTrie p2 = new PatriciaTrie(); 
+			
+			// Recuperation des fichiers du dossier Shakespeare
+			System.out.println("Recuperation des fichiers du dossier Shakespeare");
+			ArrayList<String> shakespeareFilesName = Tools.shakespeareFics();
+			ArrayList<String> words1 = Tools.fic_to_listWord("./fichiers_test/Shakespeare/" 
+					+ shakespeareFilesName.get(0) );
+			ArrayList<String> words2 = Tools.fic_to_listWord("./fichiers_test/Shakespeare/" 
+					+ shakespeareFilesName.get(1) );
+			
+			if(words1 == null) System.out.println("chelou1!!");
+			if(words2 == null) System.out.println("chelou2!!");
+			
+			System.out.println("go dans les set");
+			Set<String> s1 = new HashSet<>();
+			for(String s : words1) s1.add(s);
+			Set<String> s2 = new HashSet<>();
+			for(String s : words2) s2.add(s);
+			
+			System.out.println("ajout de s1 dans h1 et p1");
+			for(String s: s1){
+				h1.add(s);
+				p1.addWord(s);
+			}
+			
+			for(String s: s2){
+				h2.add(s);
+				p2.addWord(s);
+			}
+			
+			Hybride hf = h1.fusion(h2); 
+			PatriciaTrie pf = p1.fusion(p2);
+			
+
+			
+			System.out.println("il y a " + s1.size() + " mots dans le set1");
+			System.out.println("il y a " + s2.size() + " mots dans le set2");
+
+			for(String s: s2){
+				s1.add(s);
+			}
+
+			
+			System.out.println("il y a " + s1.size() + " mots dans les set");
+			System.out.println("il y a " + pf.comptageMot() + " mots dans le PatriciaTrie");
+			System.out.println("il y a " + hf.comptageMot() + " mots dans le HybrideTrie");
+
+						
+		} catch (WrongAccessException | BadArgumentException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 }
